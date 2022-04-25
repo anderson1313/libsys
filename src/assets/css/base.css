@@ -1,0 +1,116 @@
+@import './normalize.css';
+@import './iconfont.css';
+
+/*:root -> 获取根元素html*/
+:root {
+  --main-background:#F7F5F2;
+  --color-text-inactive: rgba(4, 52, 158,.3);
+  --color-text-active:rgba(4, 52, 158,1.0);
+  --color-high-text: #ff5777;
+  --color-tint: #ff8198;
+  --color-background: #fff;
+  --font-size: 14px;
+  --line-height: 1.5;
+  --logo-color:rgba(34, 112, 147,1.0)
+}
+html{
+  font-size: 100px;
+}
+body{
+  font-size: 24px;
+}
+body{
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+  user-select: none; /* 禁止用户鼠标在页面上选中文字/图片等 */
+  -webkit-tap-highlight-color: transparent; /* webkit是苹果浏览器引擎，tap点击，highlight背景高亮，color颜色，颜色用数值调节 */
+  background: var(--color-background);
+  color: var(--color-text);
+  /* rem vw/vh */
+  width: 100vw;
+}
+
+a {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+
+.clear-fix::after {
+  clear: both;
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  visibility: hidden;
+}
+
+.clear-fix {
+  zoom: 1;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+
+.pfade-enter-active,
+.efade-enter-active,
+.pfade-leave-active,
+.efade-leave-active {
+  transition: all 0.5s ease;
+}
+
+/* pfade */
+.pfade-enter {
+  transform: translateX(-70%);
+}
+.pfade-enter-to {
+  transform: translateX(0);
+}
+.pfade-leave {
+  transform: translateX(-60%);
+}
+.pfade-leave-to {
+  transform: translateX(-150%);
+}
+
+/* efade */
+.efade-enter {
+  transform: translateX(70%);
+}
+.efade-enter-to {
+  transform: translateX(0);
+}
+.efade-leave {
+  transform: translateX(60%);
+}
+.efade-leave-to {
+  transform: translateX(150%);
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none !important;
+  margin: 0;
+}
+input {
+  border: none;
+  outline:none
+}
