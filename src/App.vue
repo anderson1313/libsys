@@ -1,5 +1,7 @@
 <template>
   <div id="app">
+
+    <div>git测试</div>
  
     <keep-alive>
       <router-view class="page-container"></router-view>
