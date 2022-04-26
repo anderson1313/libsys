@@ -5,7 +5,6 @@
       v-model="ueamil"
       @input="eamilInput"
       placeholder="请输入邮箱"
-     
     />
   </div>
 </template>

@@ -28,7 +28,8 @@ export default {
         event.keyCode == "110" ||
         event.keyCode == "189" ||
         event.keyCode == "190" ||
-        event.keyCode == "229"
+        event.keyCode == "229" ||
+        event.keyCode == "69"
       ) {
         event.preventDefault();
       }

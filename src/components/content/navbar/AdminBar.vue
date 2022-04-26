@@ -1,10 +1,9 @@
 <template>
   <navigation-bar>
     <div class="admin-bar-logo">
-      <span class="iconfont icon-mybook"></span>
-      <span>EasyLib</span>
+       <img src="@/assets/img/logoadmin.png" >
       <div>
-           <span class="version">管理者版</span>
+         
       </div>
           
     
@@ -46,13 +45,14 @@ export default {
 
 <style>
 .nav-bar{
+    overflow: hidden;
     width:90vw;
     margin: 0 auto;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-content: center;
-    background:white ;
+     background: var(--main-background);
     border-bottom: 1px solid #dcdfe6;
     height: 0.7rem;
 }
@@ -63,11 +63,24 @@ export default {
     align-content: center;
 }
 .admin-bar-logo {
+    width: 200px;
+    height: 70px;
+    background: #16a085;
     color: #16a085;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    position: relative;
+}
+.admin-bar-logo img{
+   position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+
 }
 
 .bar-logo > * {

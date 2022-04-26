@@ -1,9 +1,9 @@
 <template>
   <div id="app">
 
-    <div>git测试</div>
+    
  
-    <keep-alive>
+    <keep-alive exclude="Login">
       <router-view class="page-container"></router-view>
     </keep-alive>
     

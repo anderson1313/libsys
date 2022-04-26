@@ -1,5 +1,5 @@
 <template>
-  <div class="login-fun">
+  <div class="login-typein">
     <span class="title">{{ title }}</span>
     <div class="fun-nav">
       <div
@@ -14,30 +14,34 @@
     </div>
     <div class="input">
       <transition name="pfade">
-        <phone-type v-show="byPhone" key="phone" v-on:handlephone="handlephone"></phone-type>
+        <phone-type
+          v-show="byPhone"
+          key="phone"
+          v-on:handlephone="handlephone"
+        ></phone-type>
       </transition>
       <transition name="efade">
-        <email-type v-show="byEmail" key="email" v-on:handleemail="handleemail"></email-type>
+        <email-type
+          v-show="byEmail"
+          key="email"
+          v-on:handleemail="handleemail"
+        ></email-type>
       </transition>
     </div>
-
-    <button :disabled="dis">下一步</button>
-  
-
-    
+    <button  :disabled="dis"  @click="tovalidate">下一步</button>
   </div>
 </template>
 <script>
-import PhoneType from './PhoneType.vue'
-import EmailType from './EmailType.vue'
+import PhoneType from "./PhoneType.vue";
+import EmailType from "./EmailType.vue";
 export default {
   name: "LoginTypeIn",
   components: {
-      PhoneType,
-      EmailType
-
+    PhoneType,
+    EmailType,
   },
   props: {
+    
     title: {
       type: String,
       default: "欢迎使用EasyLib",
@@ -55,8 +59,10 @@ export default {
           value: "邮箱",
         },
       ],
-      currentFn: 0,
       dis: true,
+      currentFn:0,
+      uphone: undefined,
+      uemail: undefined,
     };
   },
   methods: {
@@ -65,18 +71,28 @@ export default {
       this.$emit("changefun", item.id);
     },
     handlephone(...arg) {
-        this.dis = !arg[0]
-        if (arg[1]) {
-            this.uphone = arg[1]
-        }
+      this.dis = !arg[0];
+      if (arg[1]) {
+        this.uphone = arg[1];
+      }
     },
-    handleemail(...arg){
-        this.dis = !arg[0]
-        if (arg[1]) {
-            this.uemail = arg[1]
-        }
+    handleemail(...arg) {
+      this.dis = !arg[0];
+      if (arg[1]) {
+        this.uemail = arg[1];
+      }
+    },
+    tovalidate() {
+      const valiObj = {
+        showtypein: false,
+        loginFn: this.currentFn,
+        value: this.currentFn === 0 ? this.uphone : this.uemail,
+      };
 
-    }
+      //网络请求
+
+      this.$emit("tovalidate", valiObj);
+    },
   },
   created() {},
 
@@ -84,29 +100,31 @@ export default {
     isActive() {
       //实际上是一个对象get方法
       return function (item) {
+         
         return this.currentFn === item.id;
       };
     },
     byPhone() {
+      
       return this.currentFn === 0;
     },
     byEmail() {
       return this.currentFn === 1;
     },
   },
+  
 };
 </script>
 <style>
-.login-fun {
+.login-typein {
   display: flex;
   flex-direction: column;
 }
-.title{
-    display: block;
-    font-size: 0.25rem;
-    font-weight: bold;
-    margin: 20px 0;
-    
+.title {
+  display: block;
+  font-size: 0.25rem;
+  font-weight: bold;
+  margin: 20px 0;
 }
 
 .fun-nav > div:hover {
@@ -127,11 +145,11 @@ export default {
 .eachfun {
   font-size: 0.15rem;
 }
-.login-fun .active {
+.login-typein .active {
   color: var(--color-text-active);
   position: relative;
 }
-.login-fun .active::after {
+.login-typein .active::after {
   display: inline-block;
   content: "";
   position: absolute;
@@ -143,61 +161,52 @@ export default {
   transform-origin: 0 0;
 }
 
-
 /*input */
 .input {
   position: relative;
   width: 100%;
   height: 0.4rem;
   margin-bottom: 30px;
- 
 }
 
 .funinput {
   height: 0.4rem;
   position: absolute;
   width: 100%;
-
 }
 .funinput input {
-    font-size: 16px;
-    height: 0.4rem;
+  font-size: 16px;
+  height: 0.4rem;
 
-    border:  1px solid gainsboro;
-    border-radius:5px ;
-    padding: 5px 10px;
-    transition: all 0.2s ease-in;
-    width: 100%;
-    
+  border: 1px solid gainsboro;
+  border-radius: 5px;
+  padding: 5px 10px;
+  transition: all 0.2s ease-in;
+  width: 100%;
 }
 .funinput input::placeholder {
-    line-height:normal;
-   color: rgb(157, 156, 156);
+  line-height: normal;
+  color: rgb(157, 156, 156);
 }
-.funinput input:focus{
-     border:  1px solid var(--color-text-active);
-}
-
-.login-fun button{
-    
-    border: none;
-    font-size: 16px;
-    padding: 10px 0;
-    border-radius:5px;
-    background: var(--color-text-active);
-     color: aliceblue;
-     cursor: pointer;
-    
-
-}
-.login-fun button[disabled]{
-    background: rgba(164, 168, 174, 1);
-    color: aliceblue;
-    border: none;
-    font-size: 16px;
-    padding: 10px 0;
-    border-radius:5px 
-
+.funinput input:focus {
+  border: 1px solid var(--color-text-active);
 }
 
+.login-typein button {
+  border: none;
+  font-size: 16px;
+  padding: 10px 0;
+  border-radius: 5px;
+  background: var(--color-text-active);
+  color: aliceblue;
+  cursor: pointer;
+}
+.login-typein button[disabled] {
+  background: rgba(164, 168, 174, 1);
+  color: aliceblue;
+  border: none;
+  font-size: 16px;
+  padding: 10px 0;
+  border-radius: 5px;
+}
 </style>
