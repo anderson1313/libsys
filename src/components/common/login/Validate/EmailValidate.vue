@@ -1,5 +1,5 @@
 <template>
-  <each-validate>
+  <each-validate v-on:completeFinalCode="sendEmailVali" ref="eachvali">
     <div slot="title">验证邮箱</div>
     <div slot="tip">
       <span>请输入发送至</span>
@@ -10,6 +10,7 @@
 </template>
 <script>
 import EachValidate from "./EachValidate.vue";
+
 export default {
   name: "EmailValidate",
   components: {
@@ -24,17 +25,27 @@ export default {
   data() {
     return {};
   },
-  methods: {},
+  methods: {
+      sendEmailVali(...args) {
+           const valiBody = {
+              value: this.value,
+              code: args[0]
+          }
+          this.$emit("sendVali",valiBody)
+      }
+  },
   created() {},
   computed: {
     uvalue() {
-      var avg, splitted, part1, part2;
-      splitted = this.value.split("@");
-      part1 = splitted[0];
-      avg = part1.length / 2;
-      part1 = part1.substring(0, part1.length - avg);
-      part2 = splitted[1];
-      return part1 + "******@" + part2;
+      if (this.value) {
+        var avg, splitted, part1, part2;
+        splitted = this.value.split("@");
+        part1 = splitted[0];
+        avg = part1.length / 2;
+        part1 = part1.substring(0, part1.length - avg);
+        part2 = splitted[1];
+        return part1 + "******@" + part2;
+      }
     },
   },
 };

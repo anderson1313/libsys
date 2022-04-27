@@ -28,6 +28,7 @@ export default {
     },
     userlogin() {
       this.sessionCache.setItem("isLogin", true);
+      
 
     },
     adminlogout() {

@@ -5,17 +5,17 @@
         v-on:tovalidate="tovalidate"
         v-show="typeinP"
         key="typeinP"
-       
       ></login-type-in>
     </transition>
 
     <transition name="efade">
       <login-validate
-        v-show="!typeinP"
+        v-if="!typeinP"
         key="validateP"
         v-on:totypein="totypein"
         :value="uvalue"
         :loginFn="loginFn"
+        ref="validateCom"
       ></login-validate>
     </transition>
   </div>
@@ -43,22 +43,34 @@ export default {
       this.showtypein = showtypein;
       this.loginFn = loginFn;
       this.uvalue = value;
+      //获取验证码
+      setTimeout(() => {
+        this.$refs.validateCom.$refs.timer.getCode();
+      }, 0);
+     
     },
     totypein({ showtypein, loginFn, value }) {
       this.showtypein = showtypein;
       this.loginFn = loginFn;
+
     },
+   
   },
-  created() {},
+  created() {
+ 
+  },
   computed: {
     typeinP() {
       return this.showtypein === true;
     },
   },
-
-  destroyed() {
+  beforeDestroy() {
+    console.log();
    
-  }
+  },
+  mounted() {
+   
+  },
 };
 </script>
 <style>

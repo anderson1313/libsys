@@ -1,5 +1,5 @@
 <template>
-  <each-validate class="phone-validate">
+  <each-validate class="phone-validate" v-on:completeFinalCode="sendPhoneVali" ref="eachvali">
     <div slot="title">验证手机号</div>
     <div slot="tip">
       <span>请输入发送至</span>
@@ -10,6 +10,7 @@
 </template>
 <script>
 import EachValidate from "./EachValidate.vue";
+
 export default {
   name: "PhoneValidate",
   components: {
@@ -24,7 +25,16 @@ export default {
   data() {
     return {};
   },
-  methods: {},
+  methods: {
+      sendPhoneVali(...args) {
+          const valiBody = {
+              value: this.value,
+              code: args[0]
+          }
+          this.$emit("sendVali",valiBody)
+
+      }
+  },
   created() {},
   computed: {
     uvalue() {
@@ -36,9 +46,7 @@ export default {
             .slice(-2)
             .padStart(this.value.length - 3, "*");
              return newvalue;
-      }
-
-     
+      }     
     },
   },
 };

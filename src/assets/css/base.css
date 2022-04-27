@@ -75,7 +75,7 @@ a {
 .efade-enter-active,
 .pfade-leave-active,
 .efade-leave-active {
-  transition: all 0.5s ease;
+  transition: all 0.4s ease;
 }
 
 /* pfade */

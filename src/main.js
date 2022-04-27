@@ -13,6 +13,7 @@ Vue.config.productionTip = false
 
 Vue.prototype.$popmessage =  Message
 Vue.prototype.sessionCache =  sessionCache
+Vue.prototype.localCache =  localCache
 
 
 new Vue({

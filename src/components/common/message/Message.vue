@@ -75,7 +75,7 @@ export default {
         case "success":
           return {
             icon: "icon-chenggong",
-            background: "#b8e994",
+            background: "rgba(120, 224, 143,.6)",
             top: `${this.top}px`,
           };
           break;

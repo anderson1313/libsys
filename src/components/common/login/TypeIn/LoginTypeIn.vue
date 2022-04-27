@@ -28,7 +28,7 @@
         ></email-type>
       </transition>
     </div>
-    <button  :disabled="dis"  @click="tovalidate">下一步</button>
+    <button @click="tovalidate" :disabled="dis">下一步</button>
   </div>
 </template>
 <script>
@@ -41,7 +41,6 @@ export default {
     EmailType,
   },
   props: {
-    
     title: {
       type: String,
       default: "欢迎使用EasyLib",
@@ -60,7 +59,7 @@ export default {
         },
       ],
       dis: true,
-      currentFn:0,
+      currentFn: 0,
       uphone: undefined,
       uemail: undefined,
     };
@@ -100,19 +99,16 @@ export default {
     isActive() {
       //实际上是一个对象get方法
       return function (item) {
-         
         return this.currentFn === item.id;
       };
     },
     byPhone() {
-      
       return this.currentFn === 0;
     },
     byEmail() {
       return this.currentFn === 1;
     },
   },
-  
 };
 </script>
 <style>
@@ -200,6 +196,8 @@ export default {
   background: var(--color-text-active);
   color: aliceblue;
   cursor: pointer;
+  margin: 0.35rem 0;
+  z-index: 99;
 }
 .login-typein button[disabled] {
   background: rgba(164, 168, 174, 1);
