@@ -7,7 +7,6 @@
         key="typeinP"
       ></login-type-in>
     </transition>
-
     <transition name="efade">
       <login-validate
         v-if="!typeinP"

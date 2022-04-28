@@ -61,7 +61,6 @@ export default {
         //模拟失败
         setTimeout(() => {
             this.$refs.phone.$refs.eachvali.$refs.codetypein.clearall = !this.$refs.phone.$refs.eachvali.$refs.codetypein.clearall
-            // this.$refs.phone.$refs.eachvali.$refs.codetypein.clearall = false
             this.loading =false
             this.$popmessage({
                 type:"error",

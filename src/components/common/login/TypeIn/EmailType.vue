@@ -24,7 +24,6 @@ export default {
       const reg = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
       const ueamil = e.target.value;
       if (reg.test(ueamil)){
-          
         this.$emit("handleemail", true, this.ueamil)
 
       }else{
