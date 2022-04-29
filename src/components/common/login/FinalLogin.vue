@@ -77,16 +77,16 @@ export default {
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   overflow: hidden;
   background: white;
-  border-radius: 0.1rem;
-  width: 360px;
-  height: 400px;
-  padding: 0.2rem;
+  border-radius: .625rem;
+  width: 22.5rem;
+  height: 25rem;
+  padding: 1.25rem;
   margin: 0 auto;
   box-sizing: border-box;
   position: relative;
 }
 .login-form > div {
-  width: 320px;
+  width: 20rem;
   position: absolute;
 }
 </style>

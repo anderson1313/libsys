@@ -98,10 +98,10 @@ export default {
 <style>
 .login-validate .backbtn{
     cursor: pointer;
-    font-size: 0.14rem;
+    font-size: .875rem;
     color: grey;
-    padding: 0.05rem;
-    border-radius:0.05rem ;
+    padding: .3125rem;
+    border-radius:.3125rem ;
 }
 .login-validate .backbtn:hover{
     background: gainsboro;

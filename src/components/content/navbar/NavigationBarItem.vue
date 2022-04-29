@@ -47,18 +47,20 @@ export default {
 .nav-bar-item {
   height: 100%;
   cursor: pointer;
-  font-size: 0.16rem;
+  font-size: 1rem;
   display: flex;
   align-content: center;
   justify-content: center;
-  line-height: 0.7rem;
-  margin: 0 0.26rem;
-  
+  margin: 0 1.25rem;
   position: relative;
+
 }
 .item-text {
   color: var(--color-text-inactive);
   transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .item-text:hover {
    color: var(--color-text-active);
@@ -70,14 +72,13 @@ export default {
   position: relative;
 }
 .active::after {
-
   display: inline-block;
   content: "";
   position: absolute;
   left: 0;
   bottom: 0;
   width: 100%;
-  height: 0.02rem;
+  height: .125rem;
   background: var(--color-text-active);
   transform-origin: 0 0;
  

@@ -94,19 +94,19 @@ export default {
 <style>
 .text,
 .iconfont {
-  font-size: 0.15rem;
+  font-size: .9375rem;
 }
 .message {
   min-width: 380px;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  border-radius: 4px;
-  border-width: 1px;
+  border-radius: .25rem;
+  border-width: .0625rem;
   border-style: solid;
   border-color: #ebeef5;
   position: fixed;
   left: 50%;
-  top: 20px;
+  top: 1.25rem;
   -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
   background-color: #edf2fc;

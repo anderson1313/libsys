@@ -54,7 +54,7 @@ export default {
     align-content: center;
      background: var(--main-background);
     border-bottom: 1px solid #dcdfe6;
-    height: 0.7rem;
+    height: 4.375rem;
 }
 .bar-routes {
     display: flex;
@@ -63,10 +63,9 @@ export default {
     align-content: center;
 }
 .admin-bar-logo {
-    width: 200px;
-    height: 70px;
+  width:12.5rem;
+    height: 4.375rem;
     background: #16a085;
-    color: #16a085;
     display: flex;
     flex-direction: row;
     justify-content: center;

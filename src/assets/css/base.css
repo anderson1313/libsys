@@ -1,4 +1,4 @@
-@import './normalize.css';
+/* @import './normalize.css'; */
 @import './iconfont.css';
 
 /*:root -> 获取根元素html*/
@@ -13,13 +13,31 @@
   --line-height: 1.5;
   --logo-color:rgba(34, 112, 147,1.0)
 }
-html{
-  font-size: 100px;
+
+@media screen and (min-width: 375px) {
+  html {
+    
+      font-size: 5px !important;
+  }
 }
-body{
-  font-size: 24px;
+@media screen and (min-width: 500px) {
+  html {
   
+      font-size: 8px !important;
+  }
 }
+@media screen and (min-width: 800px) {
+  html {
+  
+      font-size: 15px !important;
+  }
+}
+@media screen and (min-width: 1000px) {
+  html {
+      font-size: 16px !important;
+  }
+}
+
 body{
   margin: 0;
   padding: 0;

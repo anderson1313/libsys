@@ -41,11 +41,11 @@ export default {
 <style>
 .tip {
   color: rgb(134, 131, 131);
-  font-size: 0.15rem;
+  font-size: .9375rem;
 }
 .tip .value {
   font-weight: bold;
   color: black;
-  margin: 0 0.05rem;
+  margin: 0 .3125rem;
 }
 </style>

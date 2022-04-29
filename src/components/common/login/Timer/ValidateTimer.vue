@@ -96,18 +96,18 @@ export default {
 </script>
 <style>
 .timer {
-  margin: 0.6rem 0;
-  height: 20px;
+  margin: 3.75rem 0;
+  height: 1.25rem;
   position: relative;
 }
 .timer > * {
   position: absolute;
   height: 100%;
-  line-height: 20px;
+  line-height: 1.25rem;
 }
 .timer .timer-btn,
 .timer .count {
-  font-size: 0.13rem !important;
+  font-size: .8125rem !important;
   color: grey;
 }
 .timer .count {
@@ -116,7 +116,7 @@ export default {
 .timer .timer-btn {
   box-sizing: content-box;
   cursor: pointer;
-  border-radius: 0.05rem;
+  border-radius: .3125rem;
   color: rgba(4, 52, 158, 0.6);
 }
 .timer .timer-btn:hover {

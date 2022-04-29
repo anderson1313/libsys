@@ -100,10 +100,11 @@ export default {
       this.$set(this.input, index, el.value);
     },
     keydown(e) {
-      var index = e.target.dataset.index * 1;
+      var index = e.target.dataset.index * 1 ;
       var el = e.target;
       if (e.key === "Backspace") {
-        if (this.input[index].length > 0) {
+          console.log(this.input[index])
+        if (this.input[index] && this.input[index].length > 0) {
           this.$set(this.input, index, "");
         } else {
           if (el.previousElementSibling) {
@@ -112,7 +113,7 @@ export default {
           }
         }
       } else if (e.key === "Delete") {
-        if (this.input[index].length > 0) {
+        if (this.input[index] && this.input[index].length > 0) {
           this.$set(this.input, index, "");
         } else {
           if (el.nextElementSibling) {
@@ -218,11 +219,11 @@ export default {
 <style >
 .input-box .input-content {
   width: 100%;
-  height: 60px;
+  height: 3.75rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: .1rem 0;
+  margin: .625rem 0;
 }
 .input-content input {
   color: inherit;
@@ -230,9 +231,9 @@ export default {
   border: 0;
   outline: 0;
   border-bottom: 1px solid #919191;
-  height: 45px;
-  width: 45px;
-  font-size: 0.2rem;
+  height: 2.8125rem;
+  width: 2.8125rem;
+  font-size: 1.25rem;
     
   text-align: center;
 }

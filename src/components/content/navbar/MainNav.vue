@@ -44,9 +44,8 @@ export default {
     flex-direction: row;
     justify-content: space-between;
     align-content: center;
-   
-    border-bottom: 1px solid #dcdfe6;
-    height: 0.7rem;
+    border-bottom: 0.01rem solid #dcdfe6;
+    height: 4.375rem;
     background: var(--main-background);
 }
 .bar-routes {
@@ -56,8 +55,8 @@ export default {
     align-content: center;
 }
 .bar-logo {
-   width: 200px;
-    height: 70px;
+   width:12.5rem;
+    height: 4.375rem;
     background: #16a085;
     display: flex;
     flex-direction: row;

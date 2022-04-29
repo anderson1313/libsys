@@ -1,8 +1,8 @@
 <template>
-  <div class="final-bar">
+ 
     <admin-bar class="bar" v-if="showAdmin"></admin-bar>
     <main-nav class="bar" v-else></main-nav>
-  </div>
+
 </template>
 <script>
 import MainNav from "components/content/navbar/MainNav.vue";

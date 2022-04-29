@@ -47,22 +47,22 @@ export default {
 }
 
 .login-container > div {
-    margin: 0 40px;
+    margin: 0 2.5rem;
     
 }
 .form{
-    width: 450px;
+    width: 28.125rem;
   
 }
 .banner{
-    width: 300px;
-    height: 300px;
+    width: 18.75rem;
+    height: 18.75rem;
     /* background: aquamarine; */
     
 }
 img{
-    width: 350px;
-    height: 350px;
+    width: 21.875rem;
+    height: 21.875rem;
 }
 
 

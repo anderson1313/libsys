@@ -118,9 +118,9 @@ export default {
 }
 .title {
   display: block;
-  font-size: 0.25rem;
+  font-size: 1.5625rem;
   font-weight: bold;
-  margin: 20px 0;
+  margin: 1.25rem 0;
 }
 
 .fun-nav > div:hover {
@@ -130,16 +130,16 @@ export default {
 .fun-nav {
   display: flex;
   flex-direction: row;
-  margin-bottom: 30px;
+  margin-bottom: 1.875rem;
 }
 .fun-nav > div {
   cursor: pointer;
 
-  margin-right: 0.2rem;
+  margin-right: 1.25rem;
 }
 
 .eachfun {
-  font-size: 0.15rem;
+  font-size: .9375rem;
 }
 .login-typein .active {
   color: var(--color-text-active);
@@ -150,9 +150,9 @@ export default {
   content: "";
   position: absolute;
   left: 0;
-  bottom: -5px;
+  bottom: -0.3125rem;
   width: 100%;
-  height: 0.02rem;
+  height: .125rem;
   background: var(--color-text-active);
   transform-origin: 0 0;
 }
@@ -161,22 +161,21 @@ export default {
 .input {
   position: relative;
   width: 100%;
-  height: 0.4rem;
-  margin-bottom: 30px;
+  height: 2.5rem;
+  margin-bottom: 1.875rem;
 }
 
 .funinput {
-  height: 0.4rem;
+  height: 2.5rem;
   position: absolute;
   width: 100%;
 }
 .funinput input {
-  font-size: 16px;
-  height: 0.4rem;
-
-  border: 1px solid gainsboro;
-  border-radius: 5px;
-  padding: 5px 10px;
+  font-size: 1rem;
+  height: 2.5rem;
+  border: .0625rem solid gainsboro;
+  border-radius: .3125rem;
+  padding: .3125rem .625rem;
   transition: all 0.2s ease-in;
   width: 100%;
 }
@@ -185,26 +184,26 @@ export default {
   color: rgb(157, 156, 156);
 }
 .funinput input:focus {
-  border: 1px solid var(--color-text-active);
+  border: .0625rem solid var(--color-text-active);
 }
 
 .login-typein button {
   border: none;
-  font-size: 16px;
-  padding: 10px 0;
-  border-radius: 5px;
+  font-size: 1rem;
+  padding: .625rem 0;
+  border-radius: .3125rem;
   background: var(--color-text-active);
   color: aliceblue;
   cursor: pointer;
-  margin: 0.35rem 0;
+  margin: 2.1875rem 0;
   z-index: 99;
 }
 .login-typein button[disabled] {
   background: rgba(164, 168, 174, 1);
   color: aliceblue;
   border: none;
-  font-size: 16px;
-  padding: 10px 0;
-  border-radius: 5px;
+  font-size: 1rem;
+  padding: .625rem 0;
+  border-radius: .3125rem;
 }
 </style>
