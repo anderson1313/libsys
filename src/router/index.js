@@ -1,8 +1,12 @@
 import Vue from "vue"
 import Router from "vue-router"
 import Message from 'components/common/message/index.js'
-import {sessionCache} from 'common/storage'
-import {localCache} from 'common/storage'
+import {
+  sessionCache
+} from 'common/storage'
+import {
+  localCache
+} from 'common/storage'
 Vue.use(Router)
 
 //导入componets
@@ -32,8 +36,7 @@ const NotFound = () => import("views/func/NotFound")
 
 //routes
 
-const routes = [
-  {
+const routes = [{
     path: "/",
     redirect: "/home",
 
@@ -48,15 +51,15 @@ const routes = [
 
   {
     path: "/library/allbooks",
-    component:AllBooks
+    component: AllBooks
   },
 
 
   {
     path: "/home",
     component: Home,
-  
-  }, 
+
+  },
   {
     path: "/userlogin",
     component: Login
@@ -68,48 +71,56 @@ const routes = [
   {
     path: "/user",
     component: User,
-    meta: { requiresLogin: true },
-    children: [
-      {
+    meta: {
+      requiresLogin: true
+    },
+    children: [{
         path: "profile",
         component: Profile,
-        meta: { requiresLogin: true }
+        meta: {
+          requiresLogin: true
+        }
       },
-     
+
     ]
   },
 
   {
     path: "/library",
     component: AllBooks,
-    children: [
-      {
-        path: "eachbook",
-        component:EachBook
-      }
-    ]
+    children: [{
+      path: "eachbook",
+      component: EachBook
+    }]
   },
   {
     path: "/admin",
-    component:Admin,
-    meta:{requiresAuth: true},
-    children: [
-      {
+    component: Admin,
+    meta: {
+      requiresAuth: true
+    },
+    children: [{
         path: "adminuser",
         component: AdminUser,
-        meta:{requiresAuth: true},
+        meta: {
+          requiresAuth: true
+        },
 
       },
       {
         path: "adminbook",
         component: AdminBook,
-        meta:{requiresAuth: true},
+        meta: {
+          requiresAuth: true
+        },
 
       },
       {
         path: "adminrecord",
         component: AdminRecord,
-        meta:{requiresAuth: true},
+        meta: {
+          requiresAuth: true
+        },
 
       },
     ]
@@ -117,13 +128,13 @@ const routes = [
 
   //捕获notfound
   {
- 
+
     path: '*',
-  
+
     component: NotFound
   },
 
-  
+
 ]
 
 const router = new Router({
@@ -134,39 +145,46 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   //登录验证
-	if (to.matched.some(record => record.meta.requiresLogin)) {
+  if (to.matched.some(record => record.meta.requiresLogin)) {
     if (sessionCache.getItem("isLogin") == true) {
       next()
-    }else{
+    } else {
       Message({
-        type:'error',
-        message:'请先登录'
+        type: 'error',
+        message: '请先登录'
       })
-      next({path:'/userlogin'})
+      next({
+        path: '/userlogin'
+      })
     }
-	
-	} else {
-		next()
-	}
+  }
 
   //管理者回退页面
-  if (from.matched.some(record => record.meta.requiresAuth) && !to.matched.some(record => record.meta.requiresAuth)){
-    sessionCache.setItem("version","user" )
+  if (from.matched.some(record => record.meta.requiresAuth) && !to.matched.some(record => record.meta.requiresAuth)) {
+    sessionCache.setItem("version", "user")
   }
+
   //权限验证
   if (to.matched.some(record => record.meta.requiresAuth)) {
+
     if (sessionCache.getItem("isadmin") == true) {
       next()
-    }else{
+    } else {
       Message({
-        type:'error',
-        message:'你没有管理员权限，请先登录'
+        type: 'error',
+        message: '你没有管理员权限，请先登录'
       })
-      next({path:'/'})
+      next({
+        path: '/'
+      })  
     }
-	} else {
-		next()
-	}
+
+
+
+
+  } else {
+    next()
+  }
 })
 
 

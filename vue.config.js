@@ -8,9 +8,7 @@ module.exports = {
           'views': '@/views',
           'components': '@/components',
           'network': '@/network',
-  
         }
-  
       }
     },
     devServer: {
@@ -21,7 +19,7 @@ module.exports = {
       hotOnly: false, 
       proxy: {
           '/api': {
-              target: 'https://hpsnx.top', //API服务器的地址
+              target: 'https://zixuan.online:8443', //API服务器的地址
               changeOrigin: true,
               pathRewrite: {
                   '^/api': ''
@@ -29,6 +27,7 @@ module.exports = {
           }
       },
   }
+ 
  
   }
   

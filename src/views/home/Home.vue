@@ -6,11 +6,13 @@
     <button @click="userlogin">用户登录</button>
     <button @click="adminlogout">管理员退出</button>
     <button @click="userlogout">用户退出</button>
+    <span>{{testdata}}</span>
   </div>
 </template>
 <script>
 
 import FinalBar from "components/content/navbar/FinalBar";
+import {getAllBooks} from "network/library";
 
 export default {
   name: "Home",
@@ -19,9 +21,19 @@ export default {
   },
   props: {},
   data() {
-    return {};
+    return {
+      testdata:null
+
+    };
   },
   methods: {
+      getAllBooks() {
+      getAllBooks().then(response => {
+        this.testdata = response
+        console.log(response)
+      })
+
+    },
     adminlogin() {
       this.sessionCache.setItem("isadmin", true);
     
@@ -40,8 +52,13 @@ export default {
 
     },
   },
-  created() {},
-  computed: {},
+  created() {
+    this.getAllBooks()
+  },
+  computed: {
+
+  
+  },
 };
 </script>
 <style>
