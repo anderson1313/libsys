@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import Message from 'components/common/message/index.js'
+import ConfirmBox from 'components/common/confirmbox'
 
 
 import {sessionCache} from 'common/storage'
@@ -14,6 +15,8 @@ Vue.use(ElementUI);
 Vue.config.productionTip = false
 
 Vue.prototype.$popmessage =  Message
+Vue.prototype.$popconfirm =  ConfirmBox
+
 Vue.prototype.sessionCache =  sessionCache
 Vue.prototype.localCache =  localCache
 sessionCache.setItem("isadmin",false)

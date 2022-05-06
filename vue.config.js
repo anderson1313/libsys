@@ -11,6 +11,8 @@ module.exports = {
         }
       }
     },
+
+    //开发环境跨域
     devServer: {
       open: true, //是否自动弹出浏览器页面
       host: "localhost", 

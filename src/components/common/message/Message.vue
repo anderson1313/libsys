@@ -46,7 +46,6 @@ export default {
     close() {
       this.closed = true;
       if (typeof this.onClose === "function") {
-          
         this.onClose();
       }
     },
@@ -75,7 +74,7 @@ export default {
         case "success":
           return {
             icon: "icon-chenggong",
-            background: "rgba(120, 224, 143,.6)",
+            background: "rgba(120, 224, 143,1)",
             top: `${this.top}px`,
           };
           break;

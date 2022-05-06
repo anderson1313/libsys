@@ -39,7 +39,7 @@ export default (options) => {
         //别的组件上移
         for (let i = index; i < len - 1; i++) {
             let dom = instances[i].$el;
-            console.log(dom)
+    
             dom.style['top'] =
                 parseInt(dom.style['top'], 10) - removedHeight - 16 + 'px';
         }
