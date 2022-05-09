@@ -65,7 +65,7 @@ export default {
 .admin-bar-logo {
   width:12.5rem;
     height: 4.375rem;
-    background: #16a085;
+
     display: flex;
     flex-direction: row;
     justify-content: center;

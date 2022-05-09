@@ -11,7 +11,8 @@
   --color-background: #fff;
   --font-size: 14px;
   --line-height: 1.5;
-  --logo-color:rgba(34, 112, 147,1.0)
+  --logo-color:rgba(34, 112, 147,1.0);
+  --card-color:#D8D2CB
 }
 
 @media screen and (min-width: 375px) {
@@ -41,6 +42,8 @@
 body{
   margin: 0;
   padding: 0;
+  width: 100% !important;
+
 }
 
 *,
@@ -149,6 +152,7 @@ button {
   -webkit-animation: msgbox-fade-out .3s;
   animation: msgbox-fade-out .3s
 }
+
 
 @-webkit-keyframes msgbox-fade-in {
   0% {

@@ -33,14 +33,12 @@ export default {
   methods: {
     handleclose() {
       this.visible = false
-      this.beforeClose && this.beforeClose(this)
-      
       this.callback && this.callback();
     },
     handleconfirm() {
       this.beforeClose && this.beforeClose(this)
-
-      this.callback && this.callback('confirm');
+      
+      this.callback && this.callback('confirm')
 
     }
   },

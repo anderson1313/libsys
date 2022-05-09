@@ -1,17 +1,12 @@
 <template>
     <div>
-        
-        <final-bar></final-bar>
-        <span>eachbook</span>
 
     </div>
 </template>
 <script>
-import FinalBar from "components/content/navbar/FinalBar";
 export default {
-  name: 'EachBook',
+  name: 'SearchBar',
   components:{
-      FinalBar
    },
    props:{
    },

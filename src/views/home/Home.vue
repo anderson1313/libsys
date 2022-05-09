@@ -56,15 +56,21 @@ export default {
         },
       })
         .then((res) => {
+
            setTimeout(() => {
             //请求
             this.currentInstance.loading = false;
             this.currentInstance.visible = false;
+            this.currentInstance = null
 
           }, 2000);
         })
         .catch((err) => {
-          console.log(err);
+          this.$popmessage({
+            type:"error",
+            message:"你已取消"
+          })
+          
         });
     
     },

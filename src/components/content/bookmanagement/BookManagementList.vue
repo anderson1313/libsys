@@ -1,17 +1,15 @@
 <template>
     <div>
-        
-        <final-bar></final-bar>
-        <span>eachbook</span>
+        <book-management-item></book-management-item>
 
     </div>
 </template>
 <script>
-import FinalBar from "components/content/navbar/FinalBar";
+import BookManagementItem from './BookManagementItem.vue'
 export default {
-  name: 'EachBook',
+  name: 'BookManagementList',
   components:{
-      FinalBar
+      BookManagementItem
    },
    props:{
    },

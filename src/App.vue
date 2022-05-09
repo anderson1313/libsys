@@ -2,7 +2,6 @@
   <div id="app">
 
     
- 
     <keep-alive exclude="Login">
       <router-view class="page-container"></router-view>
     </keep-alive>
@@ -39,7 +38,7 @@ export default{
 .page-container{
   width: 90vw !important;
   margin: 0 auto;
-  overflow: hidden;
+  /* overflow: hidden; */
   
 }
 
