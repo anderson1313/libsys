@@ -1,8 +1,6 @@
 <template>
   <div class="book-list">
-    
-          <book-item v-for="(bookItem, index) in books" :key="index" :bookItem="bookItem" ></book-item>
-
+      <book-item v-for="(bookItem, index) in books" :key="index" :bookItem="bookItem" ></book-item>
   </div>
 </template>
 <script>
@@ -26,11 +24,11 @@ export default {
 </script>
 <style>
 .book-list{
-    margin: 3.125rem auto;
-    width: 75%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+  margin: 0 auto;
+  width: 675px;
+  
+  
+
 }
 
 </style>

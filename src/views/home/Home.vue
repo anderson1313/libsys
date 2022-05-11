@@ -1,6 +1,6 @@
 <template>
   <div class="home-container">
-    <final-bar></final-bar>
+    <!-- <final-bar></final-bar> -->
     <span>home</span>
     <button @click="adminlogin">管理员登陆</button>
     <button @click="userlogin">用户登录</button>

@@ -19,9 +19,14 @@ Vue.prototype.$popconfirm =  ConfirmBox
 
 Vue.prototype.sessionCache =  sessionCache
 Vue.prototype.localCache =  localCache
-sessionCache.setItem("isadmin",false)
-sessionCache.setItem("version","user")
-sessionCache.setItem("isLogin",false)
+if (!sessionCache.getItem("isadmin")){
+  sessionCache.setItem("isadmin",false)
+  sessionCache.setItem("version","user")
+  sessionCache.setItem("isLogin",false)
+
+}
+
+
 
 new Vue({
   router,

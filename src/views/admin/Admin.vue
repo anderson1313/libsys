@@ -1,15 +1,15 @@
 <template>
     <div>
-         <final-bar></final-bar>
+      
 
     </div>
 </template>
 <script>
-import FinalBar from "components/content/navbar/FinalBar";
+
 export default {
   name: 'Admin',
   components:{
-      FinalBar
+     
    },
    props:{
    },

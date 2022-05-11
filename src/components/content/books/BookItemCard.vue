@@ -1,9 +1,9 @@
 <template>
   <transition name="book-fade">
     <div class="book-item-card" v-show="visible">
-        <span>{{bookItem.Title}}</span>
-        <div>{{bookItem.Summary}}</div>
-
+      <span class="card-title">{{ bookItem.Title }}</span>
+      <span class="card-author">{{ bookItem.Author }}</span>
+      <div class="card-summary">{{ bookItem.Summary }}</div>
     </div>
   </transition>
 </template>
@@ -34,14 +34,14 @@ export default {
 <style>
 .book-item-card {
   transition: all 0.6s;
-
   width: 15.625rem;
   height: 15.625rem;
   background: var(--card-color);
   position: absolute;
   z-index: 1100;
   top: 0;
-  left: 100%;
+  left: 110%;
+  padding: 0.875rem;
 }
 .book-item-card:before {
   width: 0;
@@ -61,5 +61,24 @@ export default {
   opacity: 0;
   -webkit-transform: translate(-20%, 0%);
   transform: translate(-20%, 0%);
+}
+.card-title,
+.card-author{
+  display: inline-block;
+  margin-right: .625rem;
+  color: var(--bold-text);
+  font-size: 1rem;
+  font-weight: bold;
+}
+.card-summary {
+  font-size: .875rem;
+  margin: 0.3125rem 0;
+  /* width: 14.375rem;
+  height: 11.25rem; */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 9;
+  overflow: hidden;
+  color: var(--common-text);
 }
 </style>

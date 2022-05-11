@@ -1,9 +1,16 @@
 <template>
-    <div>
-        <final-bar></final-bar>
-    
-        <book-list :books="allbooks"></book-list>
+    <div class="all-books">
+        <!-- <final-bar></final-bar> -->
+        <div class="library-main">
+          <div class="search-bar"></div>
+          <div class="book-list-wrapper">
+            
+            <book-list :books="allbooks"></book-list>
+            <div class="filter-list"></div>
+          </div>
+        </div>
 
+      
     </div>
 </template>
 <script>
@@ -697,5 +704,19 @@ export default {
 }
 </script>
 <style>
-
+.search-bar{
+  width: 100%;
+  height: 3.125rem;
+  background: antiquewhite;
+}
+.book-list-wrapper{
+  margin: 1.25rem 0;
+  display: flex;
+  flex-direction: row;
+}
+.filter-list{
+  width: 300px;
+  height: 700px;
+  background: antiquewhite;
+}
 </style>

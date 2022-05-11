@@ -54,12 +54,14 @@ export default {
 </script>
 <style>
 .book-item {
-  margin: 0.625rem 1.25rem;
+  float: left;
+  margin: 0.625rem 0;
+  margin-right: 15px;
   width: 7.5rem;
   height: 13.75rem;
-  padding: 0.9375rem;
+  /* padding: 0.9375rem;
   box-sizing: content-box;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; */
   position: relative;
   border-radius: 0.3125rem;
 }
@@ -83,7 +85,7 @@ export default {
 }
 .book-info {
   white-space: nowrap;
-  width: 7.1875rem;
+  width: 6.875rem;
   margin: 0 auto;
   margin-top: 0.75rem;
 }
@@ -93,7 +95,7 @@ export default {
   height: 0.875rem;
   line-height: 0.875rem;
   width: 7.1875rem;
-  font-size: 0.625rem;
+  font-size: 14px;
   white-space: nowrap;
   overflow: hidden;
   margin: 0.375rem 0;

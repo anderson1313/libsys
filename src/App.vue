@@ -1,7 +1,7 @@
 <template>
   <div id="app">
+     <final-bar></final-bar>
 
-    
     <keep-alive exclude="Login">
       <router-view class="page-container"></router-view>
     </keep-alive>
@@ -10,10 +10,11 @@
 </template>
 
 <script>
-
+import FinalBar from "components/content/navbar/FinalBar";
 export default{
   name: 'App',
   components: {
+    FinalBar
   
   },
   data() {
@@ -36,7 +37,7 @@ export default{
 <style>
 @import 'assets/css/base.css';
 .page-container{
-  width: 90vw !important;
+  width: 1040px !important;
   margin: 0 auto;
   /* overflow: hidden; */
   

@@ -1,17 +1,12 @@
 <template>
     <div>
-        
-      
-        <span>eachbook</span>
 
     </div>
 </template>
 <script>
-
 export default {
-  name: 'EachBook',
+  name: 'UserManagementItem',
   components:{
-      FinalBar
    },
    props:{
    },

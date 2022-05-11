@@ -1,11 +1,11 @@
 <template>
     <div>
-          <final-bar></final-bar>
+          <!-- <final-bar></final-bar> -->
 
     </div>
 </template>
 <script>
-import FinalBar from "components/content/navbar/FinalBar";
+// import FinalBar from "components/content/navbar/FinalBar";
 export default {
   name: 'AdminRecord',
   components:{

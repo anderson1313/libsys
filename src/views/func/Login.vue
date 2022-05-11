@@ -37,8 +37,8 @@ export default {
 <style>
 
 .login-container {
-    width: 100vw !important;
-    height: 100vh;
+    
+    height: 600px;
     display: flex;
     flex-direction: row;
     justify-content: center;

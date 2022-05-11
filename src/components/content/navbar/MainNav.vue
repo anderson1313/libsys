@@ -36,9 +36,16 @@ export default {
 </script>
 
 <style>
+@media (max-width: 1100px){
+  .nav-bar{
+     width:800px !important;
+
+  }
+
+}
 .nav-bar{
   overflow: hidden;
-    width:90vw;
+    width:1300px;
     margin: 0 auto;
     display: flex;
     flex-direction: row;
