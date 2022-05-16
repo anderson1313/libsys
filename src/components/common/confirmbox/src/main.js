@@ -16,8 +16,6 @@ ConfirmBoxConstructor.prototype.callback = defaultCallback;
 
 
 const initInstance = (options) => {
-    
-    
     instance = new ConfirmBoxConstructor({
         propsData: options,
         el: document.createElement('div')
@@ -33,15 +31,12 @@ const showNextMsg = (options) => {
         initInstance(options);
     }
     document.body.appendChild(instance.$el);
-
     Vue.nextTick(() => {
         instance.visible = true;
     });
 }
 
 const MyConfirmBox = function (options) {
-    
-
     return new Promise((resolve, reject) => {
         showNextMsg(options);
         //保存这个promuse的回调，可以在别的地方调用
@@ -50,8 +45,5 @@ const MyConfirmBox = function (options) {
             reject
         }
     });
-
-
-
 }
 export default MyConfirmBox

@@ -9,7 +9,7 @@
     <span>{{ testdata }}</span>
     <pagination @change="changePage"></pagination>
     <search-bar
-      :getRelatedResCallBack="getRelatedRes"  
+      :getRelatedResCallBack="getRelatedRes"
       :relatedRes="relatedRes"
     ></search-bar>
   </div>
@@ -19,6 +19,7 @@ import Pagination from "components/common/pagination/Pagination";
 import SearchBar from "components/common/searchbar/SearchBar";
 
 import { getAllBooks } from "network/library";
+import { confirmRequest } from "common/utils";
 
 export default {
   name: "Home",
@@ -37,7 +38,7 @@ export default {
   },
   methods: {
     getRelatedRes(...args) {
-      // console.log("请求参数",args[0])   
+      // console.log("请求参数",args[0])
       getAllBooks().then((response) => {
         this.relatedRes = response;
       });
@@ -64,36 +65,24 @@ export default {
       this.sessionCache.setItem("isLogin", false);
     },
     returnbook() {
-      var that = this;
-      this.$popconfirm({
-        confirmMsg: "testmsg",
-        beforeClose: (instance) => {
-          that.currentInstance = instance;
-        },
-      })
-        .then((res) => {
-          setTimeout(() => {
-            //请求
-            this.currentInstance.loading = false;
-            this.currentInstance.visible = false;
-            this.currentInstance = null;
-          }, 2000);
-        })
-        .catch((err) => {
-          this.$popmessage({
-            type: "error",
-            message: "你已取消",
-          });
+      const callBack = function () {
+        getAllBooks().then((response) => {
+          this.currentInstance.loading = false;
+          this.currentInstance.visible = false;
+          this.currentInstance = null;
         });
+      };
+      const _returnbook = confirmRequest.apply(this,[callBack]);
+      _returnbook("123")
     },
   },
   created() {
     this.getAllBooks();
   },
   computed: {},
-   deactivated() {
-     console.log("deactiva")
-  }
+  deactivated() {
+    console.log("deactiva");
+  },
 };
 </script>
 <style>
