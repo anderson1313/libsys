@@ -1,8 +1,9 @@
 <template>
+<!-- <transition name="bfade"> -->
   <div class="book-item">
     <div class="book-img" @click="toBookDetail">
       <img
-        :src="GetImage(bookItem.Image)"
+        :src="GetImage(bookItem.bookPhoto)"
         alt=""
         @mouseenter="showCardFn"
         @mouseleave="hideCardFn"
@@ -10,14 +11,15 @@
     </div>
     <div class="book-info">
       <div class="book-title" >
-        <span @click="toBookDetail">{{ bookItem.Title }}</span>
+        <span @click="toBookDetail">{{ bookItem.bookName }}</span>
       </div>
     
-      <div class="book-author">{{ bookItem.Author }}</div>
+      <div class="book-author">{{ bookItem.bookAuthor }}</div>
     </div>
 
     <book-item-card :visible="showCrad" :bookItem="bookItem"></book-item-card>
   </div>
+  <!-- </transition> -->
 </template>
 <script>
 import BookItemCard from "./BookItemCard.vue";
@@ -35,6 +37,7 @@ export default {
         return {};
       },
     },
+    
   },
   data() {
     return {
@@ -57,8 +60,9 @@ export default {
   computed: {},
 };
 </script>
-<style>
+<style> 
 .book-item {
+  transition: all 1s;
   float: left;
   margin: 0.625rem 0;
   margin-right: 15px;

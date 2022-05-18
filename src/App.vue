@@ -37,7 +37,7 @@ export default{
 
 </script>
 
-<style>
+<style >
 @import 'assets/css/base.css';
 @media (max-width: 1024px){
   .bar-con{

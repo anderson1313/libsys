@@ -38,7 +38,7 @@ export default {
   computed: {},
 };
 </script>
-<style>
+<style >
 .tip {
   color: rgb(134, 131, 131);
   font-size: .9375rem;

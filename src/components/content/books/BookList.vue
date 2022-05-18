@@ -1,37 +1,42 @@
 <template>
   <div class="book-list">
-      <book-item v-for="(bookItem, index) in books" :key="index" :bookItem="bookItem" @toBookDetail="toBookDetail"></book-item>
+    <transition-group :name="ani">
+    <book-item
+    
+      v-for="(bookItem, index) in books"
+      :key="index"
+      :bookItem="bookItem"
+      @toBookDetail="toBookDetail"
+    ></book-item>
+    </transition-group>
   </div>
 </template>
 <script>
-
-import BookItem from "./BookItem.vue"
+import BookItem from "./BookItem.vue";
 export default {
   name: "BookList",
   components: {
-      BookItem
+    BookItem,
   },
-  props: ["books"],
+  props: ["books","ani"],
   data() {
-    return {
-      
-    
-    };
+    return {};
   },
   methods: {
-    toBookDetail(id){
-      this.$emit("toBookDetail",id)
-    }
+    toBookDetail(id) {
+      this.$emit("toBookDetail", id);
+    },
   },
   created() {},
   computed: {},
 };
 </script>
 <style>
-.book-list{
+.book-list {
   margin: 0 auto !important;
-  width: 675px !important;
+  width: 800px !important;
+  
 
+  
 }
-
 </style>

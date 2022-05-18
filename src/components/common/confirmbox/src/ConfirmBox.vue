@@ -48,7 +48,7 @@ export default {
   computed: {},
 };
 </script>
-<style>
+<style scoped>
 .confirm-box-wrapper{
     display: flex;
     align-items: center;

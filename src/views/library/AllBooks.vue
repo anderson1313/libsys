@@ -1,726 +1,90 @@
 <template>
-    <div class="all-books">
-        <!-- <final-bar></final-bar> -->
-        <div class="library-main">
-          <search-bar></search-bar>
-          <div class="book-list-wrapper">
-            
-            <book-list :books="allbooks" @toBookDetail="toBookDetail"></book-list>
-            <div class="filter-list"></div>
-          </div>
-        </div>
+  <div class="all-books">
+    <div class="library-main">
+      <search-bar></search-bar>
+      <div class="book-list-wrapper">
+        <transition name="efade">
+          <book-list
+            :ani="ani"
+            :books="allbooks"
+            @toBookDetail="toBookDetail"
+            v-loading="allbooks.length == 0"
+            element-loading-text="拼命加载中"
+          ></book-list>
+        </transition>
+        <div class="filter-list"></div>
+      </div>
 
-      
+      <pagination @change="changePage" :total="total"></pagination>
     </div>
+  </div>
 </template>
 <script>
 import FinalBar from "components/content/navbar/FinalBar";
-import BookList from "components/content/books/BookList.vue"
-import SearchBar from 'components/common/searchbar/SearchBar'
+import BookList from "components/content/books/BookList.vue";
+import SearchBar from "components/common/searchbar/SearchBar";
+import Pagination from "components/common/pagination/Pagination";
+import { getBooksByPage } from "network/library.js";
+
 export default {
-  name: 'AllBooks',
-  components:{
-      FinalBar,
-      BookList,
-      SearchBar
-      
-   },
-   props:{
-   },
-   data() {
-      return {
-          allbooks: [
-               {
-      "isbn": "9787540765026",
-      "Title": "妊娠",
-      "Author": "贾平凹",
-      "Author_intro": "",
-      "Tag": "贾平凹 中国 中国现当代文学 小说 昆山图书馆 ",
-      "NumRaters": "2",
-      "Average": "0.0",
-      "Id": 24523932,
-      "Binding": "",
-      "Pages": "152",
-      "Publisher": "漓江出版社",
-      "Origin_title": "",
-      "Url": "https://book.douban.com/subject/24523932/",
-      "Image": "https://img1.doubanio.com/lpic/s26658789.jpg",
-      "Summary": "《原本贾平凹•长篇小说系列:妊娠》讲述的是一些看似平凡但又让人颇为心动的故事。有这样一群人，他们在日复一日的重复生活中平静地活着、爱着、生着、死着，用自己的生命轨迹呈现着生活的不同侧面，在社会变迁的潮流中展示着人性的纯美。作者通过日常生活的细腻描写，充分展示了浓重的时代大背景下那闪光的浪花，显示出对世情的超越，对生命的坦然面对。"
+  name: "AllBooks",
+  components: {
+    FinalBar,
+    BookList,
+    SearchBar,
+    Pagination,
+  },
+  props: {},
+  data() {
+    return {
+      allbooks: [],
+      total: 0,
+      ani: "",
+      curPage: 1,
+    };
+  },
+  methods: {
+    toBookDetail(bookid) {
+      this.$router.push({
+        name: "bookdetail",
+        params: { id: bookid },
+      });
     },
-    {
-      "isbn": "9787540765033",
-      "Title": "商州",
-      "Author": "贾平凹",
-      "Author_intro": "",
-      "Tag": "贾平凹 小说 中国现当代文学 风土人情 ",
-      "NumRaters": "6",
-      "Average": "0.0",
-      "Id": 24523933,
-      "Binding": "",
-      "Pages": "215",
-      "Publisher": "漓江出版社",
-      "Origin_title": "",
-      "Url": "https://book.douban.com/subject/24523933/",
-      "Image": "https://img1.doubanio.com/lpic/s26696078.jpg",
-      "Summary": "《原本贾平凹•长篇小说系列:商州》是贾平凹的第一部长篇小说。作者以刘成和珍子的爱情故事为主线，在讲述他们跌宕起伏、艰难曲折的爱情经历的同时，用大量笔墨穿插描绘出商州各地的地域地理、风土人情、历史习俗，展现了讲述了80年代初期安静、美好、民风纯朴的乡村生活，并通过商州一市七县的社会变革，揭示了改革开放后，商州城乡的变化发展与差异。"
-    },
-    {
-      "isbn": "9787540765040",
-      "Title": "土门",
-      "Author": "贾平凹",
-      "Author_intro": "",
-      "Tag": "贾平凹 当代文学 中国文学 中国现当代文学 还好吧。第一人称女，在贾的书里比较少见 ",
-      "NumRaters": "5",
-      "Average": "0.0",
-      "Id": 24523934,
-      "Binding": "",
-      "Pages": "202",
-      "Publisher": "漓江出版社",
-      "Origin_title": "",
-      "Url": "https://book.douban.com/subject/24523934/",
-      "Image": "https://img1.doubanio.com/lpic/s26696077.jpg",
-      "Summary": "《原本贾平凹•长篇小说系列:土门》内容简介：如同许多村庄一样，西京的仁厚村也面临着走向城市化的进程。在这村庄里有希望保留村庄、热爱乡村生活的新任村长成义和梅梅等人，也有被城市同化、希望走出村庄、渴望城市现代生活的眉子等人。为了留住仁厚村，从外归来的强势新任村长成义带领大家作了种种努力，最终却因为盗窃文物罪被判死刑；而梅梅和眉子，在仁厚村成为废墟的第三天离开了西京。《土门》以独特的视角，展现了在国家工业化、城镇化进程的必然趋势下，城市生存方式和乡村保守心态的矛盾……"
-    },
-    {
-      "isbn": "9787540765064",
-      "Title": "我是农民",
-      "Author": "贾平凹",
-      "Author_intro": "",
-      "Tag": "贾平凹 中国 中国现当代文学 ",
-      "NumRaters": "7",
-      "Average": "0.0",
-      "Id": 24523936,
-      "Binding": "",
-      "Pages": "135",
-      "Publisher": "漓江出版社",
-      "Origin_title": "",
-      "Url": "https://book.douban.com/subject/24523936/",
-      "Image": "https://img3.doubanio.com/lpic/s26684614.jpg",
-      "Summary": "《原本贾平凹•长篇小说系列:我是农民》是一部自传性作品。“我”初中毕业，即遭遇“文化大革命”，于是回家务农，成为真正的农民。在这“广阔的天地中”，我成为了一名好社员，见证着农村中的各项“运动”，在亲情中熬过“政治逆境”，开始自己的暗恋。直至时来运转，我得到机会发挥特长，办工地战报；体味真正意义上的初恋。最后，凭借各种机缘，我终于走出农村，到省城读大学。全书既展示了“我”的人生经历和心路历程，也从一个侧面反映了当代中国的变迁，印证了“真正的苦难在脚下，真正的快乐在苦难中”。"
-    },
-    {
-      "isbn": "9787540766245",
-      "Title": "江湖奇侠传",
-      "Author": "平江不肖生",
-      "Author_intro": "平江不肖生（1889—1957），现代著名武侠小说作家，本名向恺然，湖南平江人。他从小文武兼修，在文学与武术上均有深厚造诣。1922年，应世界书局之约，开始专心从事武侠作品的创作。一生共著有武侠小说十二部，代表作《江湖奇侠传》及《近代侠义英雄传》，名震大江南北，引领了一代武侠文学潮流。",
-      "Tag": "平江不肖生 民国武侠 向恺然 版本不同 赵红苕 中国 小说 中国现当代文学 ",
-      "NumRaters": "15",
-      "Average": "6.8",
-      "Id": 25725917,
-      "Binding": "",
-      "Pages": "1027",
-      "Publisher": "漓江出版社",
-      "Origin_title": "",
-      "Url": "https://book.douban.com/subject/25725917/",
-      "Image": "https://img1.doubanio.com/lpic/s27045058.jpg",
-      "Summary": "《江湖奇侠传》写于上世纪二十年代初，是平江不肖生的武侠处女作，是现代武侠小说的重要作品。书中以湖南平江、浏阳两县争赵家坪为引子，以昆仑、崆峒两派的恩怨纠纷为主线，围绕“侠”字，写出了多位剑侠的传奇人生与精彩事迹，并在字里行间体现了作者正义必胜邪恶的观念。书中故事异彩纷呈， 令人手不释卷。本书首开武林门户之争的写作范式，对后世武侠创作具有深远影响。而《火烧红莲寺》《投名状》等影视作品，均以本书为滥觞，更增添了本书的魅力。"
-    },
-    {
-      "isbn": "9787540766382",
-      "Title": "在别处",
-      "Author": "杨晓敏 (编者), 秦俑 (编者)",
-      "Author_intro": "",
-      "Tag": "",
-      "NumRaters": "0",
-      "Average": "0.0",
-      "Id": 26924395,
-      "Binding": "平装",
-      "Pages": "184",
-      "Publisher": "漓江出版社",
-      "Origin_title": "",
-      "Url": "https://book.douban.com/subject/26924395/",
-      "Image": "https://img3.doubanio.com/f/shire/5522dd1f5b742d1e1394a17f44d590646b63871d/pics/book-default-large.gif",
-      "Summary": ""
-    },
-    {
-      "isbn": "9787540766399",
-      "Title": "简单爱",
-      "Author": "杨晓敏 秦俑 选编",
-      "Author_intro": "",
-      "Tag": "2016 小说 ",
-      "NumRaters": "4",
-      "Average": "0.0",
-      "Id": 25704742,
-      "Binding": "平装",
-      "Pages": "332",
-      "Publisher": "漓江出版社",
-      "Origin_title": "",
-      "Url": "https://book.douban.com/subject/25704742/",
-      "Image": "https://img3.doubanio.com/lpic/s27018032.jpg",
-      "Summary": "《简单爱》精选了《小小说选刊》十年间优秀的篇章集结而成，旨在检阅一个时期以来中国小小说的创作实绩。近150篇作品，敏锐地捕捉生活中的每一个瞬间，每一个闪回，题材丰富，语言凝练，短小且具张力，精炼却不乏震撼；一叶知秋，含蓄隽永，世间百态、人生感慨尽在其中。"
-    },
-    {
-      "isbn": "9787540766429",
-      "Title": "原本贾平凹·长篇小说系列",
-      "Author": "贾平凹",
-      "Author_intro": "",
-      "Tag": "",
-      "NumRaters": "0",
-      "Average": "0.0",
-      "Id": 26578077,
-      "Binding": "精装",
-      "Pages": "254",
-      "Publisher": "漓江出版社",
-      "Origin_title": "",
-      "Url": "https://book.douban.com/subject/26578077/",
-      "Image": "https://img1.doubanio.com/lpic/s28262049.jpg",
-      "Summary": ""
-    },
-    {
-      "isbn": "9787540766627",
-      "Title": "老公的春天",
-      "Author": "王静茹",
-      "Author_intro": "王静茹\n都市婚恋题材金牌编剧。\n代表作：\n2010年《中国家庭》第二部\n《裸婚》\n2011年 《闪婚》\n《三十而嫁》\n《钱多多嫁人记》\n2012年《新女婿时代》\n《隐婚日记》\n《我的闺蜜婆婆》",
-      "Tag": "老公的春天 中国 小说 爱情 ",
-      "NumRaters": "8",
-      "Average": "0.0",
-      "Id": 25704752,
-      "Binding": "平装",
-      "Pages": "260",
-      "Publisher": "漓江出版社",
-      "Origin_title": "",
-      "Url": "https://book.douban.com/subject/25704752/",
-      "Image": "https://img3.doubanio.com/lpic/s27136744.jpg",
-      "Summary": "踏实厚道的小公务员宫喜，是一个容易满足的家庭“煮”夫，但是他偏偏娶了一个“校花级”的事业型美女艾娇娇，两人的差距越来越大，终于在无情的现实面前分道扬镳。离婚后的宫喜遭遇了80后剩女莫小莉，在莫小莉帮助宫喜复婚的过程中，两人情愫暗生，但就在这时前妻艾娇娇又回来了，三人陷入了尴尬的局面。宫喜左右为难，几个家庭也乱了套……"
-    },
-    {
-      "isbn": "9787540766825",
-      "Title": "乡村夜话",
-      "Author": "(俄罗斯)果戈理",
-      "Author_intro": "果戈理（1809—1852），19世纪俄国批判现实主义文学的奠基人，被车尔尼雪夫斯基称为“俄国散文之父”。他出生于乌克兰一个不太富裕的地主家庭。他所处的19世纪上半期，正是俄国农奴制瓦解和资本主义生产关系发展的时期。果戈理善于用幽默讽刺的手法揭露俄国农奴制官僚社会的黑暗，《钦差大臣》和《死魂灵》是其代表作。《乡村夜话》描绘了乌克兰大自然的诗情画意，讴歌了普通人名勇敢、善良和热爱自由的性格，是果戈理的处女作。",
-      "Tag": "小说 俄@果戈理 苏俄文学 俄罗斯文学 外国文学 果戈里 俄罗斯 西方現代文學 ",
-      "NumRaters": "16",
-      "Average": "7.9",
-      "Id": 25714196,
-      "Binding": "平装",
-      "Pages": "",
-      "Publisher": "漓江出版社",
-      "Origin_title": "",
-      "Url": "https://book.douban.com/subject/25714196/",
-      "Image": "https://img3.doubanio.com/lpic/s27229192.jpg",
-      "Summary": "《夜话》是果戈理的处女作，果戈理在《夜话》中编写了八个故事，这些故事的素材大部分来自民间传说，故事写得非常生动，引人入胜，故事很贴近老百姓的生活。别林斯基的一段话概括了果戈理《夜话》的特点，他说：“《夜话》是一部富有诗意、充满生活气息、很有魅力的作品。美丽的大自然，普通百姓过的那种诱人的乡村生活，富有个性的人民，所有这一切都五彩斑斓地闪耀在果戈理这第一部富有诗意、富有幻想的创作中。”"
-    },
-    {
-      "isbn": "9787540768676",
-      "Title": "2013中国年度小小说",
-      "Author": "杨晓敏 秦俑 赵建宇 选编",
-      "Author_intro": "由中国小小说界选家选编的《2013中国年度小小说》，是从当年在全国上百种文学刊物发表的小小说中精选出来的，旨在检阅当年度小小说的创作实绩，公正客观地推选出思想性、艺术性俱佳，有代表性，有影响力的年度小小说。",
-      "Tag": "中国小说 ★ ronin ◇ 先读 散打 ",
-      "NumRaters": "5",
-      "Average": "0.0",
-      "Id": 25788626,
-      "Binding": "平装",
-      "Pages": "280",
-      "Publisher": "漓江出版社",
-      "Origin_title": "",
-      "Url": "https://book.douban.com/subject/25788626/",
-      "Image": "https://img1.doubanio.com/lpic/s27173809.jpg",
-      "Summary": "乔叶、韩少功、毕淑敏、陈毓、申平、刘心武、格非、刘建超、聂鑫森、符浩勇……近百位作家的百余篇作品，敏锐地捕捉生活中的每一个瞬间、每一个闪回，题材丰富、语言凝练，短小且具张力，精炼却不乏震撼；一叶知秋，含蓄隽永，世间百态、人生慨叹尽在其中。\n\n编辑推荐\n由中国小小说界选家选编的《2013中国年度小小说》，是从当年在全国上百种文学刊物发表的小小说中精选出来的，旨在检阅当年度小小说的创作实绩，公正客观地推选出思想性、艺术性俱佳，有代表性，有影响力的年度小小说。"
-    },
-    {
-      "isbn": "9787540768850",
-      "Title": "骑兵军",
-      "Author": "伊萨克·巴别尔",
-      "Author_intro": "伊萨克·巴别尔（Исаа́к Ба́бель, 1894-1940），犹太裔俄罗斯作家，代表作为短篇小说集《敖德萨故事》、《骑兵军》等。",
-      "Tag": "巴别尔 俄罗斯 小说 短篇小说 外国文学 文学 历史 *桂林·漓江出版社* ",
-      "NumRaters": "102",
-      "Average": "9.0",
-      "Id": 25784670,
-      "Binding": "平装",
-      "Pages": "192",
-      "Publisher": "漓江出版社",
-      "Origin_title": "КОНΑΡМИЯ",
-      "Url": "https://book.douban.com/subject/25784670/",
-      "Image": "https://img3.doubanio.com/lpic/s27168063.jpg",
-      "Summary": "1920年，巴别尔他以战地记者的身份，跟随布琼尼统帅的苏维埃红军第一骑兵军进攻波兰。战争历时三个月。巴别尔目击了欧洲历史上，也是人类历史上最后一次大规模的空前惨烈的骑兵会战。1923年至1924年，他根据这次征战，陆续创作了三十多篇短小精悍的文章，有战地速写，也有军旅故事，这就是《骑兵军》。这曲曾经震撼过世界、畅销欧美的苏波战争的绝唱，既是一个带眼镜的犹太书生有关文明与暴力、征服与反抗的记录，也是一部霸气十足、豪气冲天、剽悍粗犷的哥萨克骑兵将士的列传。"
-    },
-    {
-      "isbn": "9787540768928",
-      "Title": "2013中国年度科幻小说",
-      "Author": "星河",
-      "Author_intro": "",
-      "Tag": "科幻 中国科幻 小说 短篇小说 M 中国 中国科幻年选 科幻小说 ",
-      "NumRaters": "14",
-      "Average": "6.8",
-      "Id": 25805007,
-      "Binding": "平装",
-      "Pages": "274",
-      "Publisher": "漓江出版社",
-      "Origin_title": "",
-      "Url": "https://book.douban.com/subject/25805007/",
-      "Image": "https://img3.doubanio.com/lpic/s27194652.jpg",
-      "Summary": "由科幻小说界权威选家选编的2013年度科幻小说，是从全国多种相关刊物当年发表的科幻小说中精选出来的，旨在检阅当年度科幻小说的创作实绩，公正客观地推选出思想性、艺术性俱佳，有代表性，有影响力的年度科幻小说。\n探险队宇宙寻宝、沙漠觅陨的惊险历程；主人公穿越回过去的奇幻经历；未来交通方式引发的种种问题……收入本书中的15篇力作，以丰富的想象、生动的故事、鲜明的人物和深入浅出的语言，探索科学技术的过去现在和未来，思考人类的命运，展示人类的梦想。"
-    },
-    {
-      "isbn": "9787540768997",
-      "Title": "2013中国年度微型小说",
-      "Author": "",
-      "Author_intro": "",
-      "Tag": "闲情逸致 ",
-      "NumRaters": "1",
-      "Average": "0.0",
-      "Id": 26928862,
-      "Binding": "",
-      "Pages": "",
-      "Publisher": "",
-      "Origin_title": "",
-      "Url": "https://book.douban.com/subject/26928862/",
-      "Image": "https://img3.doubanio.com/lpic/s29197803.jpg",
-      "Summary": ""
-    },
-    {
-      "isbn": "9787540769550",
-      "Title": "黑旗旋风",
-      "Author": "潘大林",
-      "Author_intro": "潘大林，中国作家协会会员，曾任贵港日报社社长、总编、广西作家协会副主席等职，文学创作一级，个人专著有《大林作品》（全3册）《南方的葬礼》《岁月无声》《最后一片枫叶》《天国一柱李秀成》《广西当代作家丛书潘大林卷》《风雨荷城》和长篇《黑旗！黑旗！》等十余种，曾获广西区人民政府文艺创作铜鼓奖、中国作协会庄重文文学奖等。",
-      "Tag": "",
-      "NumRaters": "0",
-      "Average": "0.0",
-      "Id": 26392011,
-      "Binding": "平装",
-      "Pages": "223",
-      "Publisher": "漓江出版社",
-      "Origin_title": "",
-      "Url": "https://book.douban.com/subject/26392011/",
-      "Image": "https://img3.doubanio.com/lpic/s28074545.jpg",
-      "Summary": "本书讲述了刘永福从一个农家少年成长为黑旗军的领袖，带领这支武装力量游走于中越边境地区，成为抗击法国侵略者的中流砥柱，为国家独立、百姓安居而驰骋四方的故事。"
-    },
-    {
-      "isbn": "9787540770754",
-      "Title": "青年狗艺术家的画像",
-      "Author": "狄兰·托马斯",
-      "Author_intro": "狄兰·托马斯（Dylan Thomas，1914—1953），英国诗人、作家，生于威尔士。代表作有《爱的地图》、《我生活的世界》、《死亡和出场》等。",
-      "Tag": "英国文学 外国文学 小说 英国 托马斯 英国@Dylan_Thomas 小说集 英美文学 ",
-      "NumRaters": "93",
-      "Average": "7.8",
-      "Id": 25881366,
-      "Binding": "平装",
-      "Pages": "160",
-      "Publisher": "漓江出版社",
-      "Origin_title": "Portrait of the Artist as a Young Dog",
-      "Url": "https://book.douban.com/subject/25881366/",
-      "Image": "https://img3.doubanio.com/lpic/s27276600.jpg",
-      "Summary": "《青年狗艺术家的画像》是狄兰·托马斯一部半自传性的中短篇小说集。通过幽默、诗意的文笔，作者在多篇小说里描绘了英国威尔士的风貌世情。故事生动、感人，充满超现实的灵光。"
-    },
-    {
-      "isbn": "9787540770761",
-      "Title": "剧院情史",
-      "Author": "米·布尔加科夫",
-      "Author_intro": "米·布尔加科夫（М.Булгаков，1891-1940），俄罗斯小说家，戏剧家，代表作有中篇小说《不祥的蛋》、长篇小说《大师和玛格丽特》等。",
-      "Tag": "俄罗斯 米·布尔加科夫 小说 布尔加科夫 外国文学 苏俄文学 文学 拾珍铺子 ",
-      "NumRaters": "110",
-      "Average": "7.8",
-      "Id": 25889849,
-      "Binding": "平装",
-      "Pages": "180",
-      "Publisher": "漓江出版社",
-      "Origin_title": "Театральный роман",
-      "Url": "https://book.douban.com/subject/25889849/",
-      "Image": "https://img5.doubanio.com/lpic/s27285516.jpg",
-      "Summary": "《剧院情史》具有明显的自传性质，小说主人公马克苏多夫实际上便是布尔加科夫本人，独立剧院即莫斯科艺术剧院，而剧院领导伊万·瓦西里耶维奇分明是斯坦尼斯拉夫斯基的化身。"
-    },
-    {
-      "isbn": "9787540771973",
-      "Title": "青青子衿",
-      "Author": "胡马依",
-      "Author_intro": "胡马依，曾在中学、大学任教，现为某文化机构负责人。写作多年，散而少集，自觉世间文字比人多，流氓比君子多，如可不写，就不写。如写了，那一定是积累了很多的废话。这种废话，当然不是生命绽放的花朵，充其量只是一种忧郁的结晶。古人说，“生年不满百，常怀千岁忧”。一旦觉识，无法抽身而去，唯一可行的就是与之同生长、同怀抱。于是这文字便多纠结，美景也常夹杂雾霾，岂可一派悠然见南山？",
-      "Tag": "青青子衿 长篇小说 漓江出版社 小说 职场 爱情 胡马依 青春文学 ",
-      "NumRaters": "69",
-      "Average": "8.3",
-      "Id": 26653757,
-      "Binding": "平装",
-      "Pages": "416",
-      "Publisher": "漓江出版社",
-      "Origin_title": "",
-      "Url": "https://book.douban.com/subject/26653757/",
-      "Image": "https://img1.doubanio.com/lpic/s28329189.jpg",
-      "Summary": "追求幸福的人们，就像一群倒挂在悬崖上的蝙蝠，荡来荡去；他们浑身的欲望如草长莺飞。这部原生态的当代长篇小说，展开了人们难以体察的真实。作品以海南、西安为背景，切入我们这个大转型大调整的时代，叙述了四对不同阶层青年男女不甘平庸的生活，坚硬的现实，脆弱的人性，卑微的理想，坚韧的奋斗，困惑丛生的情感，如影随形的挫败，在一个相当广阔的视野上展开了当代社会生活的丰富性、复杂性。“青青子衿，悠悠我心，但为君故，沉吟至今”，一种远古的忧虑跨越千年接续至今。"
-    },
-    {
-      "isbn": "9787540773953",
-      "Title": "2014中国年度科幻小说",
-      "Author": "星河",
-      "Author_intro": "",
-      "Tag": "科幻 文学 中国 小说 M ",
-      "NumRaters": "25",
-      "Average": "7.2",
-      "Id": 26308437,
-      "Binding": "平装",
-      "Pages": "232",
-      "Publisher": "漓江出版社",
-      "Origin_title": "",
-      "Url": "https://book.douban.com/subject/26308437/",
-      "Image": "https://img5.doubanio.com/lpic/s28001446.jpg",
-      "Summary": "时间旅行中可能出现的障碍、非理性思维的自相矛盾与可笑、现代人在未来时代将遭受到的文化冲击、北京——一座可以折叠的城市、梦境以及永生……12篇科幻小说力作，以丰富的想象、生动的故事、鲜明的人物和深入浅出的语言，探索科学技术的过去、现在和未来，思考人类的命运，展示人类的梦想。"
-    },
-    {
-      "isbn": "9787540774806",
-      "Title": "姜的味道是热的",
-      "Author": "[日]绵矢莉莎",
-      "Author_intro": "",
-      "Tag": "日本文学 日本 绵矢莉莎 爱情 情感个人成长 小说 女人 日系 ",
-      "NumRaters": "127",
-      "Average": "6.6",
-      "Id": 26357301,
-      "Binding": "平装",
-      "Pages": "176",
-      "Publisher": "漓江出版社",
-      "Origin_title": "",
-      "Url": "https://book.douban.com/subject/26357301/",
-      "Image": "https://img3.doubanio.com/lpic/s28066185.jpg",
-      "Summary": "收录《姜的味道是热的》《昨天与明天之间》两个故事，以男女主人公的视角交叉描写一对情侣不同阶段的恋爱。\n一见钟情的弦和奈世，同居半年。虽然距离上亲近无间，可两人的想法却渐行渐远……\n同居三年后的一天，奈世将花、蛋糕和结婚申请表摆在弦的面前，却被弦果断拒绝。奈世赌气离开东京，跑回老家……\n恋爱、同居、结婚……都市、故乡……恋人、父母……绵矢莉莎用细腻的笔触描写彼此相爱却总是错过的两人的内心世界。"
-    },
-    {
-      "isbn": "9787540774868",
-      "Title": "生首是闻",
-      "Author": "[日] 法月纶太郎",
-      "Author_intro": "法月纶太郎（Norizuki Rintaro）\n日本新本格派推理小说的核心人物之一。1964年出生于日本岛根县，毕业于京都大学法学部。曾加入京都大学推理小说研究社，1988年以《密闭教室》获得岛田庄司推荐出道，被视为新本格第一期成员之一。2002年以《都市传说谜案》获第五十五届日本推理作家协会奖短篇小说奖，2005年以长篇《生首是闻》获得第五届本格推理小说大奖。",
-      "Tag": "法月纶太郎 日本 推理 日本推理 小说 日系推理 本格 文学 ",
-      "NumRaters": "88",
-      "Average": "6.7",
-      "Id": 26333694,
-      "Binding": "平装",
-      "Pages": "384",
-      "Publisher": "漓江出版社",
-      "Origin_title": "生首に聞いてみろ",
-      "Url": "https://book.douban.com/subject/26333694/",
-      "Image": "https://img1.doubanio.com/lpic/s28075707.jpg",
-      "Summary": "知名雕塑家川岛伊作在作品回顾展前夕猝逝。随后，烬燃余生、以爱女江知佳为模特儿的石膏像头不翼而飞。\n莫非是恐怖的杀人预告？江知佳的突然匿迹，勾现出悬念丛生、涉及凶案的悚栗隐秘……谁是杀害江知佳的凶手？\n雕塑家的胞弟川岛敦志？追逐名利、精于算计的美术评论家宇佐见？骚扰过江知佳的摄影师堂本峻？抑或川岛伊作的前妻各务律子？……\n作者以“本格推理”独有的探案方式撕出真相！"
-    },
-    {
-      "isbn": "9787540774936",
-      "Title": "越爱越自由",
-      "Author": "凯瑟琳·詹金斯 (Katherine Jenkins)",
-      "Author_intro": "",
-      "Tag": "外国文学 ",
-      "NumRaters": "4",
-      "Average": "0.0",
-      "Id": 26745435,
-      "Binding": "平装",
-      "Pages": "196",
-      "Publisher": "漓江出版社",
-      "Origin_title": "",
-      "Url": "https://book.douban.com/subject/26745435/",
-      "Image": "https://img3.doubanio.com/lpic/s28514904.jpg",
-      "Summary": ""
-    },
-    {
-      "isbn": "9787540775162",
-      "Title": "为亡灵弹奏玛祖卡",
-      "Author": "[西班牙]卡米洛·何塞·塞拉（Camilo José Cela）",
-      "Author_intro": "卡米洛·何塞·塞拉（Camilo José Cela，1916—2002），西班牙作家，1989年诺贝尔文学奖获得者。代表作有《为亡灵弹奏玛祖卡》、《蜂房》等。",
-      "Tag": "卡米洛·何塞·塞拉 西班牙 小说 西班牙文学 外国文学 文学 外国小说 西语文学 ",
-      "NumRaters": "43",
-      "Average": "7.9",
-      "Id": 26367990,
-      "Binding": "平装",
-      "Pages": "292",
-      "Publisher": "漓江出版社",
-      "Origin_title": "Mazurca Para Dos Muertos",
-      "Url": "https://book.douban.com/subject/26367990/",
-      "Image": "https://img5.doubanio.com/lpic/s28061146.jpg",
-      "Summary": "“爱伦·坡说得对，我们的思想迟钝、老化、单调，我们的记忆力错乱、凋谢，像菜刀那样生锈了，人家都说是这样，这就是我们的思想、我们的记忆的特征吧。”\n《为亡灵弹奏玛祖卡》通过西班牙内战期间一桩谋杀案及其复仇事件的描写，生动反映了加利西亚山区居民的生活及其政治倾向。作家巧妙运用加利西亚方言，把西班牙西北部这一地区的民俗风情描摹得淋漓尽致，充溢着浓郁的地方色彩。\n\n西班牙文学评论界普遍认为，这部小说是塞拉晚年文学创作的一个高峰，可以列为西班牙当代小说的经典作品。"
-    },
-    {
-      "isbn": "9787540775407",
-      "Title": "两个故事",
-      "Author": "[奥地利] 罗伯特·穆齐尔",
-      "Author_intro": "罗伯特·穆齐尔（Robert Musil，1880—1942），奥地利作家，代表作为长篇小说《没有个性的人》。",
-      "Tag": "罗伯特·穆齐尔 小说 奥地利 奥地利文学 穆齐尔 外国文学 德语文学 文学 ",
-      "NumRaters": "135",
-      "Average": "8.4",
-      "Id": 26390071,
-      "Binding": "平装",
-      "Pages": "128",
-      "Publisher": "漓江出版社",
-      "Origin_title": "Vereinigungen: Zwei Erzählungen",
-      "Url": "https://book.douban.com/subject/26390071/",
-      "Image": "https://img1.doubanio.com/lpic/s28093468.jpg",
-      "Summary": "《两个故事》是奥地利大作家穆齐尔生前出版的一个单行本小说集。如今首度在中国出版发行。小说集包括两篇中篇小说，分别是《爱情的完成》和《对平静的薇罗妮卡的诱惑》。《两个故事》由著名德语文学翻译家、穆齐尔研究者张荣昌教授翻译。"
-    },
-    {
-      "isbn": "9787540775421",
-      "Title": "教授的黄昏",
-      "Author": "邱华栋",
-      "Author_intro": "作者/邱华栋\n著名小说家，诗人，评论家。曾为《青年文学》杂志执行主编，现为《人民文学》杂志副主编。主要作品有长篇小说 “北京时间”系列（《白昼的喘息》《正午的供词》《花儿与黎明》《教授的黄昏》）、《夏天的禁忌》《夜晚的诺言》《骑飞鱼的人》《单筒望远镜》，中短篇小说集《黑暗河流上的闪光》《把我捆住》，散文集《绝色喀纳斯》，书评集《和大师一起生活》，建筑评论集《城市漫步》，诗集《花朵与岩石》等。多部作品被译成法文、德文、日文、韩文、英文、越南文等。",
-      "Tag": "漓江出版社 文学 畅销 小说 好书- 邱华栋 北京时间 小说类 ",
-      "NumRaters": "4",
-      "Average": "0.0",
-      "Id": 26584048,
-      "Binding": "平装",
-      "Pages": "444",
-      "Publisher": "漓江出版社",
-      "Origin_title": "",
-      "Url": "https://book.douban.com/subject/26584048/",
-      "Image": "https://img3.doubanio.com/lpic/s28807483.jpg",
-      "Summary": "直察人性最深处的灰暗沟壑，真与伪、灵与肉的激烈撞击。\n他，是一个开银色宝马的教授，与市长为友、商人为盟。\n他，光鲜的生活下涌动着血的气息、钱的气息、性的气息。\n玫瑰花浴、皇帝按摩、玻璃鸟巢中的女人、私人事务调查所，夜总会中的大学生、代人受孕……\n生活喧嚣富足却又落寞匮乏。在那一条条黑色利益链中，他们脱下了过去的外衣，换上了新的行头，他们多了一张新面孔。"
-    },
-    {
-      "isbn": "9787540775445",
-      "Title": "正午的供词",
-      "Author": "邱华栋",
-      "Author_intro": "",
-      "Tag": "*桂林·漓江出版社* Q邱华栋 ",
-      "NumRaters": "0",
-      "Average": "0.0",
-      "Id": 26815994,
-      "Binding": "平装",
-      "Pages": "364",
-      "Publisher": "漓江出版社",
-      "Origin_title": "",
-      "Url": "https://book.douban.com/subject/26815994/",
-      "Image": "https://img1.doubanio.com/lpic/s28807487.jpg",
-      "Summary": ""
-    },
-    {
-      "isbn": "9787540775940",
-      "Title": "致密伦娜情书",
-      "Author": "[奥] 弗兰茨·卡夫卡",
-      "Author_intro": "",
-      "Tag": "卡夫卡 书信 *桂林·漓江出版社* 2016 【可信/不可信】 心之独白 ",
-      "NumRaters": "7",
-      "Average": "0.0",
-      "Id": 26464424,
-      "Binding": "平装",
-      "Pages": "",
-      "Publisher": "漓江出版社",
-      "Origin_title": "",
-      "Url": "https://book.douban.com/subject/26464424/",
-      "Image": "https://img3.doubanio.com/lpic/s28270005.jpg",
-      "Summary": ""
-    },
-    {
-      "isbn": "9787540776787",
-      "Title": "斜面",
-      "Author": "[墨] 阿尔丰索·雷耶斯",
-      "Author_intro": "阿尔丰索·雷耶斯（Alfonso Reyes，1889—1959），墨西哥作家。著有散文集《马德里画稿》、小说集《斜面》、诗集《足迹》《休止符》等。",
-      "Tag": "阿尔丰索·雷耶斯 墨西哥文学 外国文学 墨西哥 拾珍铺子 拉美文学 短篇小说 拉美 ",
-      "NumRaters": "21",
-      "Average": "7.2",
-      "Id": 26640453,
-      "Binding": "平装",
-      "Pages": "112",
-      "Publisher": "漓江出版社",
-      "Origin_title": "El Plano Oblicuo",
-      "Url": "https://book.douban.com/subject/26640453/",
-      "Image": "https://img3.doubanio.com/lpic/s28331444.jpg",
-      "Summary": "《斜面》收集了阿尔丰索·雷耶斯写于1912年至1914年间的作品。小说内容充满了浪漫激越的气息与重视细节描写的现实主义特点；题材来源丰富，有对古希腊、罗马故事的阐述，也有对墨西哥本土社会生活的关注。雷耶斯的写作意图在于主张精神自由和独立思考。在艺术上，他努力发掘欧洲和墨西哥的古典精华，坚持在人文科学领域要掀起一场新的文艺复兴运动。"
-    },
-    {
-      "isbn": "9787540776985",
-      "Title": "2015中国年度科幻小说",
-      "Author": "",
-      "Author_intro": "",
-      "Tag": "科幻 小说 文学 ",
-      "NumRaters": "5",
-      "Average": "0.0",
-      "Id": 26707141,
-      "Binding": "平装",
-      "Pages": "",
-      "Publisher": "漓江出版社",
-      "Origin_title": "",
-      "Url": "https://book.douban.com/subject/26707141/",
-      "Image": "https://img1.doubanio.com/lpic/s28381869.jpg",
-      "Summary": ""
-    },
-    {
-      "isbn": "9787540777821",
-      "Title": "三剑客(上下)",
-      "Author": "大仲马",
-      "Author_intro": "大仲马（1802—1870），19世纪法国浪漫主义作家。1944年创作长篇历史小说《三剑客》（又译《三个火枪手》）获得成功，奠定了他作为历史小说家的地位。次年《基督山伯爵》问世，再次引起轰动。他一生勤奋写作，留下几十部戏剧作品和一百多部小说，是法国19世纪最多产、最受民众欢迎的作家之一。",
-      "Tag": "*******i565******* 【可信/不可信】 三个火枪手 大仲马 ",
-      "NumRaters": "1",
-      "Average": "0.0",
-      "Id": 26797710,
-      "Binding": "",
-      "Pages": "816",
-      "Publisher": "漓江出版社",
-      "Origin_title": "",
-      "Url": "https://book.douban.com/subject/26797710/",
-      "Image": "https://img3.doubanio.com/lpic/s28786845.jpg",
-      "Summary": "《三剑客》是法国著名作家大仲马的代表作，以17世纪法国国王路易十三在位时代为背景，以王权和教权的矛盾为主线，并插入法英战争，描绘了一系列波澜起伏、曲折离奇、妙趣横生的故事，而这一切都是通过达达尼安和他的三剑客朋友的冒险经历来铺陈的，读来饶有趣味，引人入胜。 这部插图珍藏本的《三剑客》是我社外国文学名著名译系列的一种，是文学史上广受欢迎的经典作品。译者李玉民为著名法国文学翻译家，译文深得原作精髓，堪称经典。"
-    },
-    {
-      "isbn": "9787540778309",
-      "Title": "骑兵军",
-      "Author": "[俄] 伊萨克·巴别尔",
-      "Author_intro": "伊萨克·巴别尔（1894-1940），前苏联籍犹太族作家、短篇小说家。全名伊萨克·埃玛努伊洛维奇·巴别尔，笔名巴布埃尔·基墨尔·柳托夫。1894年7月13日生于奥德萨。代表作是短篇小说集《骑兵军》，其中以《我的第一只鹅》最为著名。\n1939年在前苏联的“大清洗“指控为间谍，1940年被枪杀，1954年被苏联当局平反。\n\n1986年，《欧洲人》杂志选出100位世界最佳小说家，巴别尔名列第一。",
-      "Tag": "巴别尔 小说 俄国文学 【可信/不可信】 *桂林·漓江出版社* 俄罗斯 俄国@伊萨克·埃玛努伊洛维奇·巴别尔 藏书 ",
-      "NumRaters": "10",
-      "Average": "7.8",
-      "Id": 26802358,
-      "Binding": "平装",
-      "Pages": "422",
-      "Publisher": "漓江出版社",
-      "Origin_title": "Конармия",
-      "Url": "https://book.douban.com/subject/26802358/",
-      "Image": "https://img5.doubanio.com/lpic/s29059806.jpg",
-      "Summary": ""
-    },
-    {
-      "isbn": "9787540778316",
-      "Title": "故事与特写",
-      "Author": "[俄] 伊萨克·巴别尔",
-      "Author_intro": "伊萨克·巴别尔（1894-1940），前苏联籍犹太族作家、短篇小说家。全名伊萨克·埃玛努伊洛维奇·巴别尔，笔名巴布埃尔·基墨尔·柳托夫。1894年7月13日生于奥德萨。代表作是短篇小说集《骑兵军》，其中以《我的第一只鹅》最为著名。\n1939年在前苏联的“大清洗“指控为间谍，1940年被枪杀，1954年被苏联当局平反。\n\n1986年，《欧洲人》杂志选出100位世界最佳小说家，巴别尔名列第一。",
-      "Tag": "巴别尔 俄国文学 外国文学 俄语文学 *桂林·漓江出版社* 俄罗斯 俄罗斯文学 广西 ",
-      "NumRaters": "12",
-      "Average": "7.9",
-      "Id": 26802364,
-      "Binding": "平装",
-      "Pages": "276",
-      "Publisher": "漓江出版社",
-      "Origin_title": "Рассказы и очерки",
-      "Url": "https://book.douban.com/subject/26802364/",
-      "Image": "https://img3.doubanio.com/lpic/s29059810.jpg",
-      "Summary": ""
-    },
-    {
-      "isbn": "9787540778637",
-      "Title": "复活的玛纳斯",
-      "Author": "红柯",
-      "Author_intro": "",
-      "Tag": "红柯 小说 文学 生命 ",
-      "NumRaters": "1",
-      "Average": "0.0",
-      "Id": 26905711,
-      "Binding": "平装",
-      "Pages": "295",
-      "Publisher": "漓江出版社",
-      "Origin_title": "",
-      "Url": "https://book.douban.com/subject/26905711/",
-      "Image": "https://img1.doubanio.com/lpic/s29128938.jpg",
-      "Summary": ""
-    },
-    {
-      "isbn": "9787540779597",
-      "Title": "无尽藏",
-      "Author": "庞贝",
-      "Author_intro": "庞贝，作家、编剧、译者。生于1966年，1985年毕业于解放军外国语学院，曾任解放军总参谋部参谋，1989年秋转业离京。此后曾隐居读书，后为谋生供职报界，曾任《香港商报》首席记者，现为广东文学院签约作家，现居深圳。出版译著及编著作品多种，近年主要作品有电影剧本《上海王》（台湾金马电影节创投项目最佳剧本奖）、话剧剧本《庄先生》（两岸四地华文戏剧节最佳编剧奖）、长篇小说《无尽藏》（《亚洲周刊》全球十大中文小说）。",
-      "Tag": "小说 南唐李煜 历史小说 庞贝 张大富 ",
-      "NumRaters": "2",
-      "Average": "0.0",
-      "Id": 26974010,
-      "Binding": "平装",
-      "Pages": "312",
-      "Publisher": "漓江出版社",
-      "Origin_title": "",
-      "Url": "https://book.douban.com/subject/26974010/",
-      "Image": "https://img5.doubanio.com/lpic/s29402156.jpg",
-      "Summary": "南唐林仁肇将军蒙冤被捕，其子在其暗示下得到一幅《韩熙载夜宴图》，为救父难，追索出画中数十位人物的不同境遇，史虚白、朱紫薇、秦蒻兰、樊若水、大司徒、小长老、耿炼师、李后主等悉数登场，多少惊人杀机与扑朔迷离的秘密，暗藏在南唐的楼台烟雨中… 全书文字古朴精致，构思极具想象力，呈现出一种神秘而诡异的古典意境，以及令人惊叹的宿命主题。"
-    },
-    {
-      "isbn": "9787540944483",
-      "Title": "锁沙",
-      "Author": "郭严隶",
-      "Author_intro": "",
-      "Tag": "",
-      "NumRaters": "0",
-      "Average": "0.0",
-      "Id": 4871317,
-      "Binding": "",
-      "Pages": "",
-      "Publisher": "",
-      "Origin_title": "",
-      "Url": "https://book.douban.com/subject/4871317/",
-      "Image": "https://img3.doubanio.com/lpic/s23643151.jpg",
-      "Summary": "老榆树在忖子的西边，就像佛祖在世界的西边。她朝着那里走去，披一身花朵似的月光。只有天边的村庄才会有这样的月光，只有这样的月光才叫月光。村庄中充满人尘的香气，炊烟、老牛、幼童、男人和女人相視一笑的眼风，它们在月光的背景中化为意象，而月光因为它们成为物质和永恒。\n\n 在月光中，渐渐地，她就觉得是在游了，像在梨花儿洇染的湖水中，在清透和暗香中.游出一切，出尘，出水，成为一个没有往事的人，超越因果的人。"
-    },
-    {
-      "isbn": "9787541030284",
-      "Title": "神仙列传",
-      "Author": "温雅",
-      "Author_intro": "",
-      "Tag": "奇幻 温雅 小说 奇幻书籍 2009 中國 小説 #2007 ",
-      "NumRaters": "22",
-      "Average": "7.3",
-      "Id": 1956068,
-      "Binding": "简裝本",
-      "Pages": "183",
-      "Publisher": "四川美术出版社",
-      "Origin_title": "",
-      "Url": "https://book.douban.com/subject/1956068/",
-      "Image": "https://img3.doubanio.com/lpic/s9060444.jpg",
-      "Summary": "神仙逍遥界，暗藏着不为人知的杀机！ 无人有罪的完美阴谋，冠冕堂皇的死亡征程就此展开！ 本来试图平稳度过人生的萧远，没能欺骗得了命运，无数件看似巧合的冒险，一步步将他推向危险的深渊，为了满足心爱女人膨胀的欲望，他以谎言和欺骗开始了通往英雄之路，但是在危机四伏的凌霄峰上，有一个更大的骗局在等待着他……"
-    },
-    {
-      "isbn": "9787541031939",
-      "Title": "金刀",
-      "Author": "",
-      "Author_intro": "",
-      "Tag": "",
-      "NumRaters": "0",
-      "Average": "0.0",
-      "Id": 3485506,
-      "Binding": "",
-      "Pages": "377",
-      "Publisher": "",
-      "Origin_title": "",
-      "Url": "https://book.douban.com/subject/3485506/",
-      "Image": "https://img3.doubanio.com/lpic/s6464775.jpg",
-      "Summary": "《金刀》是一本金庸都想先睹为快的书。全文共分38个内容，分别有:开场锣鼓、洛阳对掌、古剑山庄、子夜绍兴、洞庭渔父、铜笛书生、巴山剑客、太原金刀、公孙小姐、公孙错之错等精彩内容。"
-    },
-    {
-      "isbn": "9787541119507",
-      "Title": "封神演义",
-      "Author": "许仲琳",
-      "Author_intro": "",
-      "Tag": "中国古典 封神 小说 qwewewq 中国文学 古文观止 感觉这书还不如电视好看 文学 ",
-      "NumRaters": "14",
-      "Average": "7.4",
-      "Id": 1086685,
-      "Binding": "平装",
-      "Pages": "430 页",
-      "Publisher": "第1版 (2001年1月1日)",
-      "Origin_title": "",
-      "Url": "https://book.douban.com/subject/1086685/",
-      "Image": "https://img1.doubanio.com/lpic/s1073177.jpg",
-      "Summary": "本书是一部神魔化的历史小说，以其瑰丽奇特的幻想、气势恢弘的规模而闻名于世。小说以商纣王残暴无道、周武王吊民伐罪为历史背景，以姜子牙斩将封神为主线，纺织出仙与仙、人与人、仙与妖之间上天入地、斗法斗宝、征战杀伐的波澜壮阔的奇观。"
-    },
-    {
-      "isbn": "9787541121012",
-      "Title": "遭遇尴尬",
-      "Author": "贺享雍",
-      "Author_intro": "",
-      "Tag": "",
-      "NumRaters": "0",
-      "Average": "0.0",
-      "Id": 2176086,
-      "Binding": "",
-      "Pages": "342",
-      "Publisher": "",
-      "Origin_title": "",
-      "Url": "https://book.douban.com/subject/2176086/",
-      "Image": "https://img5.doubanio.com/lpic/s5754436.jpg",
-      "Summary": "《遭遇尴尬》是优秀的农村题材长篇小说，它由三个主题相同又相对独立的故事组成。\n　　毁林事件，继承争夺，乡政府成被告三件事乍看令人啼笑皆非，其中的“尴尬”却反映出法纪与现代文明在传统文化与行为方式面前是多么苍白无力。\n　　乡官们“遭遇尴尬”偶然中有必然。在这一幅幅川东北农村风格画中，显然渗透着作者对农村生活的全景审视与理性思索。"
-    }
-        ]
+
+    changePage(page) {
+      this.allbooks = [];
+      if (page > this.curPage) {
+        this.ani = "brfade";
       }
-   },
-   methods:{
-     toBookDetail(bookid) {
-       this.$router.push({
-         name:"bookdetail",
-         params:{id:bookid}
-       })
-   
-     }
-   },
-   created(){
-   },
-   computed:{
-   },
-}
+      if (page < this.curPage) {
+        this.ani = "blfade";
+      }
+      setTimeout(() => {
+        getBooksByPage(page).then((res) => {
+          this.allbooks = res.rows;
+        });
+      }, 500);
+      this.curPage = page;
+    },
+  },
+  created() {
+    getBooksByPage(1).then((res) => {
+      this.allbooks = res.rows;
+      this.total = res.total;
+    });
+  },
+  computed: {},
+};
 </script>
 <style>
-
-.book-list-wrapper{
+.book-list-wrapper {
   margin: 1.25rem 0;
   display: flex;
   flex-direction: row;
 }
-.filter-list{
+.filter-list {
   width: 300px;
-  height: 700px;
+  height: 500px;
   background: antiquewhite;
 }
 </style>

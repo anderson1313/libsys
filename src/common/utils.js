@@ -24,11 +24,11 @@ export function debounce(fn, delay, immediate = false) {
 
 
 //confirm请求函数-fn是请求
-export function confirmRequest(fn) {
+export function confirmRequest(fn,msg) {
     return (...args) => {
         var that = this;
         this.$popconfirm({
-            confirmMsg: "testmsg",
+            confirmMsg: msg,
             beforeClose: (instance) => {
                 that.currentInstance = instance;
             },

@@ -152,7 +152,7 @@ router.beforeEach((to, from, next) => {
   if (flag) {
     //登录验证
     if (toRqLogin) {
-      console.log("登陆验证")
+      // console.log("登陆验证")
       if (sessionCache.getItem("isLogin") == true) {
         next()
       } else {
@@ -168,7 +168,7 @@ router.beforeEach((to, from, next) => {
     }
     //权限验证
     if (toRqAuth) {
-      console.log("权限验证")
+      // console.log("权限验证")
       if (sessionCache.getItem("isadmin") == true) {
 
 
@@ -184,7 +184,7 @@ router.beforeEach((to, from, next) => {
       }
     }
   } else {
-    console.log("无验证跳转")
+    // console.log("无验证跳转")
     next()
   }
 

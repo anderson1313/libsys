@@ -89,6 +89,7 @@ export default {
 
   methods: {
     setPage(page) {
+    
         this.quickprevIconClass = "el-icon-more";
         this.quicknextIconClass = "el-icon-more";
 
@@ -104,6 +105,7 @@ export default {
       }
       // 发出pager中页码被改变的事件
       this.$emit("change", this.current);
+
     },
     onMouseenter(direction) {
       if (direction === "left") {

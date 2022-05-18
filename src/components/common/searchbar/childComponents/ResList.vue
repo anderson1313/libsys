@@ -9,7 +9,7 @@
       :key="index"
     >
       <i class="iconfont icon-sousuo"></i>
-      <span>{{ item.option }}</span>
+      <span>{{ item[field].replace(/\s*/g,"") }}</span>
     </div>
   </div>
 </template>
@@ -32,6 +32,9 @@ export default {
       type: Number,
       default: -1,
     },
+    field:{
+      type:String
+    }
   },
   watch: {
     activeRes: function (newVal, oldVal) {
@@ -45,7 +48,6 @@ export default {
   },
   methods: {
     serachbook(e) {
-        
         this.$emit("serachbook",e.target.dataset.keyword)
     },
   },
@@ -64,6 +66,8 @@ export default {
   transition: all 0.2s ease-in;
 }
 .each-res {
+  display: flex;
+  align-items: center;
   cursor: pointer;
   height: 28px;
   line-height: 28px;
@@ -71,16 +75,25 @@ export default {
   padding: 0 10px;
 }
 .each-res span {
+  width: 80%;
   font-size: 14px;
   color: rgba(45, 52, 54, 0.8);
   display: inline-block;
   margin-left: 10px;
   line-height: 28px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .activeSe,
 .each-res:hover {
   background: rgba(128, 128, 128, 0.111);
-  color: var(--color-text-active);
+  color: var(--color-text-active) !important;
+}
+.each-res:hover span,
+.activeSe span{
+  color: var(--color-text-active) !important;
+
 }
 .each-res i {
   font-size: 15px !important;

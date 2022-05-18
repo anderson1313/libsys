@@ -58,6 +58,7 @@ export default {
   },
   methods: {
     setPage(page) {
+     
       // 左边越界
       if (page < 1) this.current = 1;
       // 右边越界
@@ -74,6 +75,7 @@ export default {
 
     // 接收pager中发出的改变页码事件，并再次发送出去
     pageChange(page) {
+      this.current = page
       
       this.$emit("change", page);
     },

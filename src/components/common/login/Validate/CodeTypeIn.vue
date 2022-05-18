@@ -216,7 +216,7 @@ export default {
   },
 };
 </script>
-<style >
+<style>
 .input-box .input-content {
   width: 100%;
   height: 3.75rem;

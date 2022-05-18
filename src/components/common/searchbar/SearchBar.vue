@@ -18,6 +18,7 @@
       :showList="cshowList"
       :relatedRes="relatedRes"
       :activeRes="activeRes"
+      :field="field"
     ></res-list>
   </div>
 </template>
@@ -38,6 +39,9 @@ export default {
     relatedRes: {
       type: Array,
     },
+    field:{
+      type: String
+    }
   },
   watch: {
     relatedRes: function (newVal, oldVal) {
@@ -53,7 +57,7 @@ export default {
       searchVal: "",
       getRelatedRes: debounce(this.getRelatedResCallBack, 400, true),
       barfoucus: false,
-      cshowList: false,
+      cshowList: true,
       winBlur: false,
       keyboardDown: this._keyboardDown(),
     };
@@ -67,14 +71,14 @@ export default {
             if (this.relatedRes) {
               if (curIndex < this.relatedRes.length - 1) {
                 this.activeRes = ++curIndex;
-                this.searchVal = this.relatedRes[curIndex].option;
+                this.searchVal = this.relatedRes[curIndex][this.field].replace(/\s*/g,"");
                 return;
               }
 
               if (curIndex === this.relatedRes.length - 1) {
                 this.activeRes = 0;
                 curIndex = 0;
-                this.searchVal = this.relatedRes[curIndex].option;
+                this.searchVal = this.relatedRes[curIndex][this.field].replace(/\s*/g,"");
                 return;
               }
             }
@@ -85,12 +89,12 @@ export default {
               if (curIndex <= 0) {
                 this.activeRes = this.relatedRes.length - 1;
                 curIndex = this.relatedRes.length - 1;
-                this.searchVal = this.relatedRes[curIndex].option;
+                this.searchVal = this.relatedRes[curIndex][this.field].replace(/\s*/g,"");
                 return;
               }
               if (curIndex < this.relatedRes.length) {
                 this.activeRes = --curIndex;
-                this.searchVal = this.relatedRes[curIndex].option;
+                this.searchVal = this.relatedRes[curIndex][this.field].replace(/\s*/g,"");
                 return;
               }
             }
@@ -157,6 +161,7 @@ export default {
 </script>
 <style>
 .search-bar {
+  cursor: pointer;
   width: 500px;
   border: 1px solid #dfe1e5;
   border-radius: 10px;
@@ -165,7 +170,7 @@ export default {
   flex-direction: row;
   align-items: center;
   padding: 0 10px;
-  transition: border 0.1s ease-in;
+  transition: border 0.3s;
 }
 .search-bar i {
   font-size: 15px !important;
@@ -174,6 +179,7 @@ export default {
   line-height: 20px;
 }
 .search-bar input {
+  cursor: pointer;
   width: 400px;
   margin-left: 10px;
   height: 34px;

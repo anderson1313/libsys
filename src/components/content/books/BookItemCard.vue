@@ -1,9 +1,9 @@
 <template>
   <transition name="book-fade">
     <div class="book-item-card" v-show="visible">
-      <span class="card-title">{{ bookItem.Title }}</span>
-      <span class="card-author">{{ bookItem.Author }}</span>
-      <div class="card-summary">{{ bookItem.Summary }}</div>
+      <span class="card-title">{{ bookItem.bookName }}</span>
+      <span class="card-author">{{ bookItem.bookAuthor }}</span>
+      <div class="card-summary">{{ bookItem.bookBrief }}</div>
     </div>
   </transition>
 </template>
@@ -42,6 +42,8 @@ export default {
   top: 0;
   left: 110%;
   padding: 0.875rem;
+  
+  
 }
 .book-item-card:before {
   width: 0;

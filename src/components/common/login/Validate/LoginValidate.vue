@@ -95,7 +95,7 @@ export default {
   },
 };
 </script>
-<style>
+<style >
 .login-validate .backbtn{
     cursor: pointer;
     font-size: .875rem;

@@ -5,21 +5,24 @@
     <button @click="userlogin">用户登录</button>
     <button @click="adminlogout">管理员退出</button>
     <button @click="userlogout">用户退出</button>
-    <button @click="returnbook">还书</button>
+    <button @click="returnbook" class="re">还书</button>
     <span>{{ testdata }}</span>
     <pagination @change="changePage"></pagination>
     <search-bar
       :getRelatedResCallBack="getRelatedRes"
       :relatedRes="relatedRes"
+      field="bookName"
     ></search-bar>
+    <div class="test">Dialogues Concerning Natural Religion : The Posthumous Essays of the Immortality of the Soul and of Suicide</div>
   </div>
 </template>
 <script>
 import Pagination from "components/common/pagination/Pagination";
 import SearchBar from "components/common/searchbar/SearchBar";
 
-import { getAllBooks } from "network/library";
+import { getAllBooks ,getBooksByName} from "network/library";
 import { confirmRequest } from "common/utils";
+
 
 export default {
   name: "Home",
@@ -37,21 +40,18 @@ export default {
     };
   },
   methods: {
-    getRelatedRes(...args) {
-      // console.log("请求参数",args[0])
-      getAllBooks().then((response) => {
+    getRelatedRes(...args) {  
+      getBooksByName(args[0]).then((response) => {
         this.relatedRes = response;
       });
     },
 
     changePage(page) {
+
+      //
       console.log("当前页面", page);
     },
-    getAllBooks() {
-      getAllBooks().then((response) => {
-        this.testdata = response;
-      });
-    },
+    
     adminlogin() {
       this.sessionCache.setItem("isadmin", true);
     },
@@ -64,6 +64,8 @@ export default {
     userlogout() {
       this.sessionCache.setItem("isLogin", false);
     },
+
+
     returnbook() {
       const callBack = function () {
         getAllBooks().then((response) => {
@@ -72,16 +74,16 @@ export default {
           this.currentInstance = null;
         });
       };
-      const _returnbook = confirmRequest.apply(this,[callBack]);
+      const _returnbook = confirmRequest.apply(this,[callBack,"你确定要删除吗？"]);
       _returnbook("123")
     },
   },
   created() {
-    this.getAllBooks();
+    
   },
   computed: {},
   deactivated() {
-    console.log("deactiva");
+    
   },
 };
 </script>
@@ -89,4 +91,16 @@ export default {
 /* button {
   border: 1px solid black;
 } */
+.re{
+  width: 50px;
+  height: 50px;
+  background: red;
+}
+.test{
+  width: 120px;
+  height: 90px;
+  font-size: 1px;
+ 
+  
+}
 </style>

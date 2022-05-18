@@ -33,14 +33,11 @@ export default {
    },
 }
 </script>
-<style>
+<style scopoed>
 
 .login-container {
     width: 100% !important;
     height: calc(100vh - 70px);
-    
-    
-  
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -62,7 +59,7 @@ export default {
     /* background: aquamarine; */
     
 }
-img{
+.banner img{
     width: 21.875rem;
     height: 21.875rem;
 }
