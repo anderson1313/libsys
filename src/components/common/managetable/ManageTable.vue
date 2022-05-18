@@ -1,8 +1,8 @@
 <template>
-  <div>
+  
     <el-table
       :data="tableData"
-      style="width: 80%"
+      :style="tableStyle"
       :row-style="{ height: '10px' }"
       :cell-style="{
         padding: '2px',
@@ -34,7 +34,7 @@
         :key="item.id"
         :label="item.label"
         :prop="item.prop"
-        :align="item.label ==='图书库存'?'center':'left'"
+        :align="item.label ==='图书名称'?'left':'center'"
       >
         <template slot-scope="scope">
           <div v-if="item.label === '图书名称'">
@@ -42,7 +42,13 @@
               scope.row.bookName
             }}</span>
           </div>
-          <div v-else>
+
+           <div v-if="item.label === '图书状态'">
+              <el-tag v-if="scope.row.bookState===0" type="danger" size="mini">缺货</el-tag>
+              <el-tag v-if="scope.row.bookState===1" type="success" size="mini">有货</el-tag>
+          </div>
+        
+          <div v-if="item.label != '图书名称' && item.label !='图书状态'">
             <span class="other">{{ scope.row[item.prop] }}</span>
           </div>
         </template>
@@ -50,14 +56,14 @@
 
       <slot name="extra"></slot>
     </el-table>
-  </div>
+
 </template>
 
 <script>
 import { ImgUrlMixIn } from "common/mixin.js";
 export default {
   name: "ManageTable",
-  props: ["labels", "tableData"],
+  props: ["labels", "tableData","tableStyle"],
   mixins: [ImgUrlMixIn],
   data() {
     return {

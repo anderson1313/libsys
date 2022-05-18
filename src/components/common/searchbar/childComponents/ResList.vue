@@ -1,11 +1,11 @@
 <template>
   <div class="res-list" v-show="showList">
     <div
-      @click="serachbook($event)"
+      @mousedown="searchbook($event)"
       :class="cactiveRes == index ? 'activeSe' : ''"
       class="each-res"
       v-for="(item, index) in relatedRes"
-      :data-keyword ="item.option"
+      :data-keyword ="item[field]"
       :key="index"
     >
       <i class="iconfont icon-sousuo"></i>
@@ -44,11 +44,14 @@ export default {
   data() {
     return {
       cactiveRes: this.activeRes,
+      click:false
+      
     };
   },
   methods: {
-    serachbook(e) {
-        this.$emit("serachbook",e.target.dataset.keyword)
+    searchbook(e) {
+      this.click = true
+      this.$emit("searchbook",e.target.dataset.keyword)
     },
   },
   created() {},
@@ -57,11 +60,14 @@ export default {
 </script>
 <style>
 .res-list {
+  position: absolute;
+  z-index: 1000;
   border: 1px solid var(--color-text-active);
   width: 500px;
   border-radius: 0 0 10px 10px;
   border-top: none;
   padding: 5px 0;
+  background: white;
 
   transition: all 0.2s ease-in;
 }

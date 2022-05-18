@@ -11,14 +11,18 @@
         @blur="cancelFocus"
         @click="clickShow"
         @keydown="keyboardDown"
-      />
+              />
+
+      
+
     </div>
     <res-list
-      @serachbook="searchBook"
+      @searchbook="searchBook"
       :showList="cshowList"
       :relatedRes="relatedRes"
       :activeRes="activeRes"
       :field="field"
+       ref="resList"
     ></res-list>
   </div>
 </template>
@@ -39,9 +43,9 @@ export default {
     relatedRes: {
       type: Array,
     },
-    field:{
-      type: String
-    }
+    field: {
+      type: String,
+    },
   },
   watch: {
     relatedRes: function (newVal, oldVal) {
@@ -55,49 +59,88 @@ export default {
     return {
       activeRes: -1,
       searchVal: "",
-      getRelatedRes: debounce(this.getRelatedResCallBack, 400, true),
+      getRelatedRes: debounce(this.getRelatedResCallBack, 300, true),
       barfoucus: false,
       cshowList: true,
       winBlur: false,
       keyboardDown: this._keyboardDown(),
+      originVal:"",
+      search:false
+      
     };
   },
   methods: {
-    _keyboardDown() {
+
+    //上下键与回车键
+    _keyboardDown() {      
       let curIndex = -1;
       const inner = (e) => {
+        //向下
         switch (e.keyCode) {
           case 40:
-            if (this.relatedRes) {
+         
+            if (this.relatedRes.length!=0) {
+              
               if (curIndex < this.relatedRes.length - 1) {
                 this.activeRes = ++curIndex;
-                this.searchVal = this.relatedRes[curIndex][this.field].replace(/\s*/g,"");
+                this.searchVal = this.relatedRes[curIndex][this.field].replace(
+                  /\s*/g,
+                  ""
+                );
                 return;
               }
+              //最后一个的情况
 
               if (curIndex === this.relatedRes.length - 1) {
-                this.activeRes = 0;
-                curIndex = 0;
-                this.searchVal = this.relatedRes[curIndex][this.field].replace(/\s*/g,"");
+                this.activeRes = -1;
+                curIndex = -1;
+                this.searchVal = this.originVal
                 return;
               }
             }
             break;
 
+          //向上
           case 38:
-            if (this.relatedRes) {
-              if (curIndex <= 0) {
+            e.preventDefault();
+            if (this.relatedRes.length!=0) {
+
+              if (curIndex == 0) {
+                this.activeRes = -1;
+                curIndex = -1;
+                this.searchVal = this.originVal
+                return;
+
+              }
+              if (curIndex < 0) {
                 this.activeRes = this.relatedRes.length - 1;
                 curIndex = this.relatedRes.length - 1;
-                this.searchVal = this.relatedRes[curIndex][this.field].replace(/\s*/g,"");
+                this.searchVal = this.relatedRes[curIndex][this.field].replace(
+                  /\s*/g,
+                  ""
+                );
                 return;
               }
               if (curIndex < this.relatedRes.length) {
                 this.activeRes = --curIndex;
-                this.searchVal = this.relatedRes[curIndex][this.field].replace(/\s*/g,"");
+                this.searchVal = this.relatedRes[curIndex][this.field].replace(
+                  /\s*/g,
+                  ""
+                );
                 return;
               }
             }
+            break;
+            //回车
+          case 8:
+            
+            if (this.searchVal.length === 1) {
+    
+              this.searchBook("")
+            }
+           
+            curIndex = -1;
+            this.activeRes = -1;
             break;
         }
       };
@@ -113,6 +156,9 @@ export default {
         this.cshowList = true;
       }
     },
+
+
+    //搜索框对焦
     barFoucus() {
       this.barfoucus = true;
       if (!this.winBlur && this.relatedRes && this.relatedRes.length > 0) {
@@ -120,19 +166,28 @@ export default {
       }
       this.winBlur = false;
     },
+
+    //搜索框取消对焦
     cancelFocus() {
+    
       this.barfoucus = false;
-      this.cshowList = false;
+      this.cshowList = false
       this.keyboardDown.cancel();
     },
 
+    //按回车键的回调函数
+
     searchBook(keyword) {
-      if (typeof keyword == 'string') {
-        console.log("发送请求", keyword);
+      if (typeof keyword == "string") {
+        this.cshowList = false
+
+        this.$emit("searchBook",keyword)
         return;
       } else {
-        console.log("发送请求", this.searchVal);
-        return
+        this.cshowList = false
+    
+        this.$emit("searchBook",this.searchVal)
+        return;
       }
     },
   },
@@ -170,7 +225,7 @@ export default {
   flex-direction: row;
   align-items: center;
   padding: 0 10px;
-  transition: border 0.3s;
+  transition: border 0.5s;
 }
 .search-bar i {
   font-size: 15px !important;
@@ -187,8 +242,7 @@ export default {
   line-height: 34px;
   font-weight: normal;
 }
-.focus,
-.search-bar:hover {
+.focus {
   border: 1px solid var(--color-text-active);
 }
 .bar-list-show {

@@ -37,7 +37,6 @@ export default {
     },
     handleconfirm() {
       this.beforeClose && this.beforeClose(this)
-      
       this.callback && this.callback('confirm')
 
     }

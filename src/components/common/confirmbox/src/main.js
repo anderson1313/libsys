@@ -4,25 +4,32 @@ const ConfirmBoxConstructor = Vue.extend(ConfirmBox);
 let currentMsg, instance;
 
 
-function defaultCallback(action) {
+ function defaultCallback(action) {
     if (action === 'confirm') {
-        currentMsg.resolve('confirm');
         instance.loading = true
+        currentMsg.resolve(['confirm',instance]);
+        instance = null
+    }else{
+        currentMsg.reject('cancle');
+        document.body.removeChild(instance.$el);
+        instance = null
+
     }
-    currentMsg.reject('cancle');
+   
+
 }
 
 ConfirmBoxConstructor.prototype.callback = defaultCallback;
 
 
 const initInstance = (options) => {
+   
     instance = new ConfirmBoxConstructor({
         propsData: options,
         el: document.createElement('div')
     })
     if(options.beforeClose) {
         instance.beforeClose = options.beforeClose
-
     }
     
 }
@@ -30,6 +37,7 @@ const showNextMsg = (options) => {
     if (!instance) {
         initInstance(options);
     }
+   
     document.body.appendChild(instance.$el);
     Vue.nextTick(() => {
         instance.visible = true;

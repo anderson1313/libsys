@@ -24,27 +24,28 @@ export function debounce(fn, delay, immediate = false) {
 
 
 //confirm请求函数-fn是请求
-export function confirmRequest(fn,msg) {
+export function confirmRequest(fn, msg) {
+
+    //
     return (...args) => {
-        var that = this;
+        var that = this; //that表示调用这个方法的组件
         this.$popconfirm({
             confirmMsg: msg,
             beforeClose: (instance) => {
                 that.currentInstance = instance;
             },
         })
+        //callback执行
             .then((res) => {
-                fn.apply(this,args)
+                fn.apply(this,[args,res[1]])
             })
             .catch((err) => {
+
                 this.$popmessage({
                     type: "error",
                     message: "你已取消",
                 });
             });
-
     }
-
-
 }
 

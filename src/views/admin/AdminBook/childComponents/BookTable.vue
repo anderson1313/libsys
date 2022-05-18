@@ -1,12 +1,10 @@
 <template>
-  <div>
-    <manage-table :tableData="tableData" :labels="labels" v-loading="loading">
-
+  
+    <manage-table :tableData="tableData" :labels="labels" v-loading="loading" :tableStyle="tableStyle">
         <!-- 如果需要额外操作可以在这里添加-->
         <book-item-extra slot="extra"></book-item-extra>
-        
     </manage-table>
-  </div>
+  
 </template>
 <script>
 import ManageTable from "components/common/managetable/ManageTable";
@@ -20,6 +18,10 @@ export default {
   props: ['tableData',"loading"],
   data() {
     return {
+        tableStyle:{
+            width:"90%",
+            margin:'0 auto'
+        },
       labels: [
         {
           id: 0,
@@ -48,12 +50,21 @@ export default {
           width:"80"
           
         },
+        {
+          id: 4,
+          label: "图书状态",
+          prop:"bookState",
+          width:"80",
+          
+        },
       ],
     };
   },
   methods: {},
   created() {},
-  computed: {},
+  computed: {
+     
+  },
 };
 </script>
 <style>
