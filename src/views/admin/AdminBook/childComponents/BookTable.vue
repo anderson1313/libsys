@@ -1,8 +1,9 @@
 <template>
   
-    <manage-table :tableData="tableData" :labels="labels" v-loading="loading" :tableStyle="tableStyle">
+    <manage-table :tableData="tableData" :labels="labels" v-loading="loading" :tableStyle="tableStyle" >
         <!-- 如果需要额外操作可以在这里添加-->
-        <book-item-extra slot="extra"></book-item-extra>
+        <book-item-extra slot="extra" @handleEdit="handleEdit"></book-item-extra>
+
     </manage-table>
   
 </template>
@@ -39,7 +40,7 @@ export default {
         },
         {
           id: 2,
-          label: "图书库存",
+          label: "借阅量",
           prop:"bookLoannumber",
           
         },
@@ -60,7 +61,12 @@ export default {
       ],
     };
   },
-  methods: {},
+  methods: {
+    handleEdit(data) {
+      this.$emit("handleEdit",data)
+
+    }
+  },
   created() {},
   computed: {
      

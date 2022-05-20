@@ -1,12 +1,17 @@
 <template>
+
   <el-table-column align ="center" label="操作">
     <template slot-scope="scope">
-      
+        <el-button
+        type="info"
+          size="mini"
+          @click="handleEdit(scope.row)">编辑</el-button>
       <el-button size="mini" type="danger" @click="handleDelete(scope.row)"
         >删除</el-button
       >
     </template>
   </el-table-column>
+  
 </template>
 <script>
 import { confirmRequest } from "common/utils";
@@ -35,6 +40,12 @@ export default {
       ]);
       _handleDelete(...outerargs);
     },
+
+    handleEdit(data) {
+    
+        this.$emit("handleEdit",data)
+        
+    }
   },
   created() {},
   computed: {},

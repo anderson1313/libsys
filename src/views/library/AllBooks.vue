@@ -52,6 +52,7 @@ export default {
     },
 
     changePage(page) {
+    
       this.allbooks = [];
       if (page > this.curPage) {
         this.ani = "brfade";
@@ -81,6 +82,7 @@ export default {
   margin: 1.25rem 0;
   display: flex;
   flex-direction: row;
+  
 }
 .filter-list {
   width: 300px;

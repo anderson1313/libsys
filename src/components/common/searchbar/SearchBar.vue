@@ -5,19 +5,17 @@
       <input
         type="text"
         v-model="searchVal"
-        @input="getRelatedRes(searchVal, $event)"
-        @keydown.enter="searchBook"
+        @input="inputMethod(searchVal,$event)"
+        @keydown.enter="searchFn"
         @focus="barFoucus"
         @blur="cancelFocus"
         @click="clickShow"
         @keydown="keyboardDown"
               />
-
-      
-
     </div>
     <res-list
-      @searchbook="searchBook"
+     
+      @search="searchFn"
       :showList="cshowList"
       :relatedRes="relatedRes"
       :activeRes="activeRes"
@@ -29,6 +27,8 @@
 <script>
 import ResList from "./childComponents/ResList.vue";
 import { debounce } from "common/utils";
+import {NOOP} from "common/const.js"
+
 
 export default {
   name: "SearchBar",
@@ -46,13 +46,24 @@ export default {
     field: {
       type: String,
     },
+    useRelated:{
+      type:Boolean,
+      default:true
+
+    }
   },
   watch: {
     relatedRes: function (newVal, oldVal) {
+     
       if (newVal.length > 0 && this.barfoucus) {
         this.cshowList = true;
       }
     },
+    searchVal(newValue,oldValue) {
+      if (newValue.length ==0) {
+        this.searchFn("")
+      }
+    }
   },
 
   data() {
@@ -69,6 +80,7 @@ export default {
       
     };
   },
+ 
   methods: {
 
     //上下键与回车键
@@ -132,16 +144,16 @@ export default {
             }
             break;
             //回车
-          case 8:
+          // case 8:
             
-            if (this.searchVal.length === 1) {
+          //   if (this.searchVal.length === 1) {
     
-              this.searchBook("")
-            }
+          //     this.searchFn("")
+          //   }
            
-            curIndex = -1;
-            this.activeRes = -1;
-            break;
+          //   curIndex = -1;
+          //   this.activeRes = -1;
+          //   break;
         }
       };
       inner.cancel = () => {
@@ -177,16 +189,16 @@ export default {
 
     //按回车键的回调函数
 
-    searchBook(keyword) {
+    searchFn(keyword) {
       if (typeof keyword == "string") {
         this.cshowList = false
 
-        this.$emit("searchBook",keyword)
+        this.$emit("searchFn",keyword)
         return;
       } else {
         this.cshowList = false
     
-        this.$emit("searchBook",this.searchVal)
+        this.$emit("searchFn",this.searchVal)
         return;
       }
     },
@@ -197,6 +209,13 @@ export default {
     });
   },
   computed: {
+
+    inputMethod() {
+      function _inner(searchVal,$event){
+        return this.getRelatedRes(searchVal, $event)
+      }
+      return this.useRelated?_inner:NOOP
+    },
     barClass() {
       if (this.searchVal === "") {
         this.cshowList = false;
@@ -205,7 +224,7 @@ export default {
       if (this.barfoucus) {
         arr.push("focus");
       }
-      if (this.cshowList && this.barfoucus) {
+      if (this.cshowList && this.barfoucus && this.relatedRes.length!=0) {
         arr.push("bar-list-show");
       }
 
@@ -217,15 +236,15 @@ export default {
 <style>
 .search-bar {
   cursor: pointer;
-  width: 500px;
+  width: 300px;
   border: 1px solid #dfe1e5;
-  border-radius: 10px;
-  height: 44px;
+  border-radius: 5px;
+  height: 40px;
   display: flex;
   flex-direction: row;
   align-items: center;
   padding: 0 10px;
-  transition: border 0.5s;
+  transition: border 0.2s;
 }
 .search-bar i {
   font-size: 15px !important;
@@ -235,15 +254,15 @@ export default {
 }
 .search-bar input {
   cursor: pointer;
-  width: 400px;
+  width: 280px;
   margin-left: 10px;
   height: 34px;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 34px;
   font-weight: normal;
 }
 .focus {
-  border: 1px solid var(--color-text-active);
+  border: 1px solid var(--search-bar);
 }
 .bar-list-show {
   border-bottom-left-radius: 0;

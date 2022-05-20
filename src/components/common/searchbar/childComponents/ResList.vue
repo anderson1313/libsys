@@ -1,7 +1,7 @@
 <template>
-  <div class="res-list" v-show="showList">
+  <div class="res-list" v-show="showList && relatedRes.length!=0" >
     <div
-      @mousedown="searchbook($event)"
+      @mousedown="searchFn($event)"
       :class="cactiveRes == index ? 'activeSe' : ''"
       class="each-res"
       v-for="(item, index) in relatedRes"
@@ -49,9 +49,9 @@ export default {
     };
   },
   methods: {
-    searchbook(e) {
+    searchFn(e) {
       this.click = true
-      this.$emit("searchbook",e.target.dataset.keyword)
+      this.$emit("searchFn",e.target.dataset.keyword)
     },
   },
   created() {},
@@ -62,8 +62,8 @@ export default {
 .res-list {
   position: absolute;
   z-index: 1000;
-  border: 1px solid var(--color-text-active);
-  width: 500px;
+  border: 1px solid var(--search-bar);
+  width: 300px;
   border-radius: 0 0 10px 10px;
   border-top: none;
   padding: 5px 0;
@@ -82,7 +82,7 @@ export default {
 }
 .each-res span {
   width: 80%;
-  font-size: 14px;
+  font-size: 12px;
   color: rgba(45, 52, 54, 0.8);
   display: inline-block;
   margin-left: 10px;

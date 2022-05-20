@@ -7,20 +7,16 @@
     <button @click="userlogout">用户退出</button>
     <button @click="returnbook" class="re">还书</button>
     <span>{{ testdata }}</span>
-    <pagination @change="changePage"></pagination>
-    <search-bar
-      :getRelatedResCallBack="getRelatedRes"
-      :relatedRes="relatedRes"
-      field="bookName"
-    ></search-bar>
-    <div class="test">Dialogues Concerning Natural Religion : The Posthumous Essays of the Immortality of the Soul and of Suicide</div>
+  
+ 
+
+    
   </div>
 </template>
 <script>
 import Pagination from "components/common/pagination/Pagination";
 import SearchBar from "components/common/searchbar/SearchBar";
-
-import { getAllBooks ,getBooksByName} from "network/library";
+import { getBooksByName} from "network/library";
 import { confirmRequest } from "common/utils";
 
 
@@ -28,6 +24,7 @@ export default {
   name: "Home",
   components: {
     SearchBar,
+    
 
     Pagination,
   },

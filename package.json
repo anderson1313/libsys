@@ -10,7 +10,6 @@
     "axios": "^0.27.2",
     "core-js": "^3.6.5",
     "element-ui": "^2.15.8",
-    "less-loader": "^4.1.0",
     "lib-flexible": "^0.3.2",
     "vue": "^2.6.11",
     "vue-router": "^3.0.7",
@@ -22,7 +21,28 @@
     "@vue/cli-plugin-router": "~4.5.15",
     "@vue/cli-plugin-vuex": "~4.5.15",
     "@vue/cli-service": "~4.5.15",
+    "autoprefixer": "^8.0.0",
+    "css-loader": "^6.7.1",
     "less": "^4.1.2",
+    "less-loader": "^4.1.0",
+    "postcss": "^8.4.14",
+    "postcss-cli": "^9.1.0",
+    "postcss-loader": "^7.0.0",
+    "style-loader": "^3.3.1",
     "vue-template-compiler": "^2.6.11"
-  }
+  },
+
+  "description": "## Project setup ``` npm install ```",
+  "main": "babel.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anderson1313/libsys.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/anderson1313/libsys/issues"
+  },
+  "homepage": "https://github.com/anderson1313/libsys#readme"
 }

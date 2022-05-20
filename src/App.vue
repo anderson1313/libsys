@@ -50,6 +50,7 @@ export default{
 }
 
 .page-container{
+
   width: 1040px !important;
   margin: 0 auto;
   /* overflow: hidden; */

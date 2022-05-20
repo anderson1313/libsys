@@ -9,7 +9,8 @@ module.exports = {
           'components': '@/components',
           'network': '@/network',
         }
-      }
+      },
+     
     },
 
     //开发环境跨域

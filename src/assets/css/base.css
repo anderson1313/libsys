@@ -17,6 +17,7 @@
   --card-color:#D8D2CB;
   --common-text:rgba(45, 52, 54,.8);
   --bold-text:rgba(53, 59, 72,1.0);
+  --search-bar:#1e3799
 }
 
 /* @media screen and (min-width: 375px) {
@@ -105,10 +106,24 @@ input::-webkit-inner-spin-button {
 }
 input {
   border: none;
-  outline:none
+  outline:none;
+  cursor: pointer;
 }
 button {
   border: none !important;
 
   background: none;
+}
+.form-wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(186, 184, 184, 0.438);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 2001;
 }

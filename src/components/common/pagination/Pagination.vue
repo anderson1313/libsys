@@ -59,17 +59,24 @@ export default {
   methods: {
     setPage(page) {
      
+     
       // 左边越界
-      if (page < 1) this.current = 1;
+      if (page < 1) {
+        this.current = 1;
+        return
+        }
       // 右边越界
       else if (page > this.totalPage) {
         this.current = this.totalPage;
+        return
+
       }
       // 正常情况
       else {
         this.current = page;
       }
       // 发出事件，让外部知道页码改变了
+    
       this.$emit("change", this.current);
     },
 
@@ -83,7 +90,7 @@ export default {
   created() {},
   computed: {
     totalPage() {
-      return Math.ceil(this.total / this.defaultPageSize);
+      return this.total? Math.ceil(this.total / this.defaultPageSize) :1;
     },
   },
 };

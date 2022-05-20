@@ -82,6 +82,7 @@ export default {
 </script>
 <style scoped>
 .book-detail {
+
   width: 675px;
 }
 .book-detail .title{
