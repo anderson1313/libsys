@@ -3,6 +3,7 @@
     <div class="bar-con">
            <final-bar></final-bar>
     </div>
+  
 
 
     <keep-alive exclude="Login,EachBook,AdminBook">
@@ -47,6 +48,7 @@ export default{
 }
 .bar-con{
   background: var(--main-background);
+
 }
 
 .page-container{

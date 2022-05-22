@@ -68,11 +68,12 @@ export default {
     },
 
     //完成事件
+    //emit出去
 
     submitForm() {
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
-          alert("submit!");
+          this.$emit("submitForm",this.form);
         } else {
           console.log("error submit!!");
           return false;

@@ -14,7 +14,6 @@
               />
     </div>
     <res-list
-     
       @search="searchFn"
       :showList="cshowList"
       :relatedRes="relatedRes"

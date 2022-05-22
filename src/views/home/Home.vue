@@ -1,32 +1,31 @@
 <template>
   <div class="home-container">
-    <span>home</span>
-    <button @click="adminlogin">管理员登陆</button>
-    <button @click="userlogin">用户登录</button>
-    <button @click="adminlogout">管理员退出</button>
-    <button @click="userlogout">用户退出</button>
-    <button @click="returnbook" class="re">还书</button>
-    <span>{{ testdata }}</span>
-  
- 
+    <div class="home-bg">
+      <div class="mask"></div>
+      <img src="@/assets/img/bg2.jpeg" alt="" />
+      <div class="text animated fadeInDown">欢迎使用EasyLib</div>
+      <div class="loginbtn animated fadeInDown" @click="loginClick">
+        {{ getTip() }}
+      </div>
+    </div>
 
-    
+    <ellipse-c></ellipse-c>
+
+    <function></function>
+    <introduction></introduction>
   </div>
 </template>
 <script>
-import Pagination from "components/common/pagination/Pagination";
-import SearchBar from "components/common/searchbar/SearchBar";
-import { getBooksByName} from "network/library";
-import { confirmRequest } from "common/utils";
-
+import EllipseC from "./childComponents/EllipseC.vue";
+import Function from "./childComponents/Function.vue";
+import Introduction from "./childComponents/Introduction.vue";
 
 export default {
   name: "Home",
   components: {
-    SearchBar,
-    
-
-    Pagination,
+    EllipseC,
+    Function,
+    Introduction,
   },
   props: {},
   data() {
@@ -37,67 +36,79 @@ export default {
     };
   },
   methods: {
-    getRelatedRes(...args) {  
-      getBooksByName(args[0]).then((response) => {
-        this.relatedRes = response;
-      });
+    getTip() {
+      if (this.sessionCache.getItem("isLogin")) {
+        return "借阅书籍";
+      } else {
+        return "立即登录";
+      }
     },
-
-    changePage(page) {
-
-      //
-      console.log("当前页面", page);
-    },
-    
-    adminlogin() {
-      this.sessionCache.setItem("isadmin", true);
-    },
-    userlogin() {
-      this.sessionCache.setItem("isLogin", true);
-    },
-    adminlogout() {
-      this.sessionCache.setItem("isadmin", false);
-    },
-    userlogout() {
-      this.sessionCache.setItem("isLogin", false);
-    },
-
-
-    returnbook() {
-      const callBack = function () {
-        getAllBooks().then((response) => {
-          this.currentInstance.loading = false;
-          this.currentInstance.visible = false;
-          this.currentInstance = null;
-        });
-      };
-      const _returnbook = confirmRequest.apply(this,[callBack,"你确定要删除吗？"]);
-      _returnbook("123")
+    loginClick() {
+      if (this.sessionCache.getItem("isLogin")) {
+        this.$router.push("/library");
+      } else {
+        this.$router.push("/userlogin");
+      }
     },
   },
-  created() {
-    
-  },
+  created() {},
   computed: {},
-  deactivated() {
-    
-  },
+  deactivated() {},
 };
 </script>
-<style>
-/* button {
-  border: 1px solid black;
-} */
-.re{
-  width: 50px;
-  height: 50px;
-  background: red;
+<style scoped>
+.home-container {
+  position: relative;
+  width: 100% !important;
+  overflow: hidden;
+  padding-bottom: 300px;
 }
-.test{
-  width: 120px;
-  height: 90px;
-  font-size: 1px;
- 
-  
+.home-bg {
+  width: 100%;
+  min-height: calc(100vh - 70px);
+  position: relative;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.home-bg img {
+  position: absolute;
+  width: 85%;
+  height: 90%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+}
+.mask {
+  position: absolute;
+  width: 85%;
+  height: 90%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.587);
+  z-index: 10;
+  border-radius: 10px;
+}
+.text,
+.loginbtn {
+  z-index: 120;
+  color: white;
+  font-weight: bold;
+  font-size: 50px;
+  text-align: center;
+}
+.loginbtn {
+  font-weight: 300;
+  cursor: pointer;
+  font-size: 15px;
+  margin: 20px 0;
+  border-radius: 10px;
+  padding: 5px 20px;
+  color: #001d6e;
+  background: rgba(255, 255, 255, 0.698);
 }
 </style>

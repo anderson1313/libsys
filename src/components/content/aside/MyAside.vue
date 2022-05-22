@@ -1,11 +1,11 @@
 <template>
-    <div class="book-aside">
-
+    <div class="aside-wrapper">
+       <slot></slot>
     </div>
 </template>
 <script>
 export default {
-  name: 'BookAside',
+  name: 'MyAside',
   components:{
    },
    props:{
@@ -22,6 +22,14 @@ export default {
    },
 }
 </script>
-<style>
+<style scoped>
+.aside-wrapper{
+   padding: 10px 0;
+
+   width: 100%;
+   height: 100%;
+  
+  
+}
 
 </style>

@@ -81,7 +81,8 @@ export default {
   width: 7.1875rem;
   height: 10.625rem;
   position: relative;
-  background: aquamarine;
+  background: rgba(220, 220, 220, 0.278);
+  border-radius: 5px;
 }
 .book-img img {
   width: 100%;

@@ -1,5 +1,6 @@
 <template>
   <div class="admin-books">
+  
     <!--功能区-->
     <div class="fun-wrapper">
       <search-bar
@@ -39,7 +40,6 @@
     <add-book-form ref="addform" ></add-book-form>
     <edit-book-form
       ref="editform"
-      
       :editData="editData"
     ></edit-book-form>
   </div>
@@ -51,6 +51,7 @@ import Pagination from "components/common/pagination/Pagination";
 import SearchBar from "components/common/searchbar/SearchBar";
 import AddBookForm from "./childComponents/AddBookForm.vue";
 import EditBookForm from "./childComponents/EditBookForm";
+import {GetBooks} from "common/mixin.js"
 export default {
   name: "AdminBook",
   components: {
@@ -58,15 +59,15 @@ export default {
     Pagination,
     SearchBar,
     AddBookForm,
-    EditBookForm,
+    EditBookForm
+    
   },
+  mixins:[GetBooks],
   props: {},
   data() {
     return {
       visible: false,
       allbooks: [],
-      loading: false,
-      total: 0,
       relatedRes: [],
       editData: undefined,
     };
@@ -74,13 +75,10 @@ export default {
   methods: {
     //展示form，新增or修改
     showForm(...args) {
-   
       if (args[1] === "add") {
-     
         this.$refs.addform.visible = true;
       }
       if ((args[1] === "edit")) {
-  
         this.editData = args[0];
         this.$refs.editform.visible = true;
       }
@@ -108,23 +106,7 @@ export default {
       });
     },
 
-    //默认获取第一页的书本
-    getDefaultBook() {
-      this.loading = true;
-      getBooksByPage(1)
-        .then((res) => {
-          this.allbooks = res.rows;
-          this.total = res.total;
-          this.loading = false;
-        })
-        .catch((err) => {
-          this.$popmessage({
-            type: "error",
-            message: "数据请求错误，请稍后再试",
-          });
-          this.loading = true;
-        });
-    },
+  
 
     //分页器页数改变
     pageChange(page) {
@@ -139,7 +121,7 @@ export default {
     },
   },
   created() {
-    this.getDefaultBook();
+   
   },
   computed: {},
 };
