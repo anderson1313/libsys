@@ -14,7 +14,7 @@ Vue.use(Router)
 const Home = () => import("views/home/Home")
 
 
-const Profile = () => import("views/user/Profile")
+
 const User = () => import("views/user/User")
 
 const AllBooks = () => import("views/library/AllBooks")
@@ -78,15 +78,7 @@ const routes = [{
   meta: {
     requiresLogin: true
   },
-  children: [{
-    path: "profile",
-    component: Profile,
-    meta: {
-      requiresLogin: true
-    }
-  },
 
-  ]
 },
 
 
