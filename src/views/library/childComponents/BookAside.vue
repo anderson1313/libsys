@@ -1,7 +1,11 @@
 <template>
   <div class="book-aside">
     <my-aside>
-      <aside-item :options="catName" :activeId="id.activeCat" @handleClick="catClick">
+      <aside-item
+        :options="catName"
+        :activeId="id.activeCat"
+        @handleClick="catClick"
+      >
         <p slot="aside-item-name">类别</p>
       </aside-item>
       <aside-item
@@ -11,7 +15,11 @@
       >
         <p slot="aside-item-name">时间</p>
       </aside-item>
-      <aside-item :options="FnName" :activeId="id.activeFn" @handleClick="fnClick">
+      <aside-item
+        :options="FnName"
+        :activeId="id.activeFn"
+        @handleClick="fnClick"
+      >
         <p slot="aside-item-name">排序偏好</p>
       </aside-item>
     </my-aside>
@@ -36,55 +44,34 @@ export default {
         activeTime: 0,
         activeFn: 0,
       },
+      params:{
+        activeCat: null,
+        activeTime: null,
+        activeFn: 0,
 
-      catName: [
-        {
-          id: 0,
-          name: "全部",
-        },
-        {
-          id: 1,
-          name: "科幻",
-        },
-        {
-          id: 2,
-          name: "爱情",
-        },
-      ],
-      TimeName: [
-           {
-          id: 0,
-          name: "全部",
-        },
-        {
-          id: 1,
-          name: "2022",
-        },
-        {
-          id: 2,
-          name: "2021",
-        },
-        {
-          id: 3,
-          name: "2020",
-        },
-        {
-          id: 4,
-          name: "2019",
-        },
-        {
-          id: 5,
-          name: "2018",
-        },
+      },
+      catNameArr: [
+        "小说",
+        "历史",
+        "文学",
+        "哲学",
+        "传记",
+        "艺术",
+        "科幻",
+        "社会",
+        "心理",
+        "经济",
+        "金融",
+        "编程",
       ],
       FnName: [
         {
           id: 0,
-          name: "按借阅次数排序",
+          name: "按评分排序",
         },
         {
           id: 1,
-          name: "按评分排序",
+          name: "按借阅次数排序",
         },
         {
           id: 2,
@@ -94,20 +81,53 @@ export default {
     };
   },
   methods: {
-    catClick(id) {
+    catClick(id,name) {
+    
       this.id.activeCat = id;
-      this.$emit("asideClick",this.id)
+      this.params.activeCat = name == "全部"?null:name;
+      this.$emit("asideClick", this.params);
     },
-    timeClick(id) {
+    timeClick(id,name) {
       this.id.activeTime = id;
-        this.$emit("asideClick",this.id)
+       this.params.activeTime = name == "全部"?null:name;
+      this.$emit("asideClick", this.params);
     },
-    fnClick(id) {
+    fnClick(id,name) {
       this.id.activeFn = id;
-        this.$emit("asideClick",this.id)
+      this.params.activeFn = id
+      this.$emit("asideClick", this.params);
+    },
+    initialCatName() {
+      let obj = [];
+      let i = 1;
+      for (let _name of this.catNameArr) {
+        let _obj = {};
+        (_obj.id = i), (_obj.name = _name);
+        i += 1;
+        obj.push(_obj);
+      }
+      this.catName = obj;
+      this.catName.unshift({id:0,name:"全部"})
+    },
+     initialTimeName() {
+      let obj = [];
+      let i = 1;
+      for (let year = 2022; year > 2015;year--) {
+        let _obj = {};
+        (_obj.id = i), (_obj.name = year);
+        i += 1;
+        obj.push(_obj);
+      }
+    
+      this.TimeName = obj;
+      this.TimeName.unshift({id:0,name:"全部"})
+
     },
   },
-  created() {},
+  created() {
+    this.initialCatName();
+    this.initialTimeName()
+  },
   computed: {},
 };
 </script>

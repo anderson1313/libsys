@@ -1,6 +1,19 @@
 <template>
     <div class="home-intro">
-        <div class="intro-left"></div>
+        <div class="intro-left">
+
+            <div class="each">
+                <i class="iconfont icon-a-gongchengshigongrennanrenrenwuxiaoxiang"></i>
+                <span>梁梓轩</span>
+            </div>
+             <div class="each">
+                <i class="iconfont icon-a-gongchengshigongrennanrenrenwuxiaoxiang"></i>
+                <span>wjf</span>
+            </div>
+
+
+
+        </div>
         <div class="intro-right">
              <p class="title">关于我们</p>
             <p class="right-text">我们是1908与1905的结合体</p>
@@ -37,18 +50,22 @@ export default {
     overflow: hidden;
        display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: center;
+    /* align-items: center; */
+    justify-content: space-between;
+  
     
 
 }
 
 .intro-left{
+      border-radius:10px ;
     width: 60%;
-    height: 100%;
+    height: 70%;
+    background: white;
+    /* box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px; */
 }
 .intro-right{
-    width: 30%;
+    width: 28%;
     height: 100%;
 }
 
@@ -68,6 +85,9 @@ export default {
     line-height: 32px;
     margin: 10px 0;
 }
-
+.each{
+ 
+   
+}
 
 </style>

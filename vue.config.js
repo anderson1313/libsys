@@ -22,7 +22,7 @@ module.exports = {
       hotOnly: false, 
       proxy: {
           '/bookservice': {
-              target: 'https://zixuan.online:8443', //API服务器的地址
+              target: 'https://10.252.77.139:8443', //API服务器的地址
               changeOrigin: true,
               pathRewrite: {
                   '^/bookservice': ''

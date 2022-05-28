@@ -5,8 +5,7 @@
 
 /*:root -> 获取根元素html*/
 :root {
-  --main-background: #f6f6f1;
-;
+  --main-background: #f6f6f1;;
   --color-text-inactive: rgba(4, 52, 158,.3);
   --color-text-active:rgba(4, 52, 158,1.0);
   --color-high-text: #ff5777;
@@ -18,7 +17,7 @@
   --card-color:#D8D2CB;
   --common-text:rgba(45, 52, 54,.8);
   --bold-text:rgba(53, 59, 72,1.0);
-  --search-bar:#1e3799
+  --search-bar:#273c75
 }
 
 /* @media screen and (min-width: 375px) {

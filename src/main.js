@@ -22,7 +22,7 @@ Vue.prototype.localCache =  localCache
 if (!sessionCache.getItem("isadmin")){
   sessionCache.setItem("isadmin",true)
   sessionCache.setItem("version","user")
-  sessionCache.setItem("isLogin",true)
+  sessionCache.setItem("isLogin",false)
 
 }
 

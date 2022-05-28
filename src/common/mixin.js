@@ -1,12 +1,16 @@
 
-import { getBooksByPage } from "network/library.js";
+import { getDefaultBook } from "network/library.js";
 
 export const ImgUrlMixIn = {
     computed: {
         GetImage() {
             return function (url) {
-                let _u = url.substring(7); //_u:提取http://后面的部分
+                if (url != undefined) {
+                    let _u = url.substring(7); //_u:提取http://后面的部分
                 return 'https://images.weserv.nl/?url=' + _u;
+
+                }
+                
             }
 
         }
@@ -26,18 +30,15 @@ export const GetBooks = {
     methods: {
         getDefaultBook() {
             this.loading = true;
-            getBooksByPage(1)
+            getDefaultBook()
                 .then((res) => {
                     this.allbooks = res.rows;
                     this.total = res.total;
                     this.loading = false;
                 })
                 .catch((err) => {
-                    this.$popmessage({
-                        type: "error",
-                        message: "数据请求错误，请稍后再试",
-                    });
-                    this.loading = true;
+                    this.loading = false;
+                    this.allbooks=[]
                 });
         },
     },

@@ -61,6 +61,9 @@ export default {
     searchVal(newValue,oldValue) {
       if (newValue.length ==0) {
         this.searchFn("")
+        this.cshowList = false;
+        
+        
       }
     }
   },
@@ -94,10 +97,11 @@ export default {
               
               if (curIndex < this.relatedRes.length - 1) {
                 this.activeRes = ++curIndex;
-                this.searchVal = this.relatedRes[curIndex][this.field].replace(
-                  /\s*/g,
-                  ""
-                );
+                // this.searchVal = this.relatedRes[curIndex][this.field].replace(
+                //   /\s*/g,
+                //   ""
+                // );
+                 this.searchVal = this.relatedRes[curIndex][this.field]
                 return;
               }
               //最后一个的情况
@@ -115,44 +119,35 @@ export default {
           case 38:
             e.preventDefault();
             if (this.relatedRes.length!=0) {
-
               if (curIndex == 0) {
+                console.log("index 0")
                 this.activeRes = -1;
                 curIndex = -1;
                 this.searchVal = this.originVal
                 return;
-
               }
               if (curIndex < 0) {
                 this.activeRes = this.relatedRes.length - 1;
                 curIndex = this.relatedRes.length - 1;
-                this.searchVal = this.relatedRes[curIndex][this.field].replace(
-                  /\s*/g,
-                  ""
-                );
+                // this.searchVal = this.relatedRes[curIndex][this.field].replace(
+                //   /\s*/g,
+                //   ""
+                // );
+                 this.searchVal = this.relatedRes[curIndex][this.field]
                 return;
               }
               if (curIndex < this.relatedRes.length) {
                 this.activeRes = --curIndex;
-                this.searchVal = this.relatedRes[curIndex][this.field].replace(
-                  /\s*/g,
-                  ""
-                );
+                // this.searchVal = this.relatedRes[curIndex][this.field].replace(
+                //   /\s*/g,
+                //   ""
+                // );
+                this.searchVal = this.relatedRes[curIndex][this.field]
                 return;
               }
             }
             break;
             //回车
-          // case 8:
-            
-          //   if (this.searchVal.length === 1) {
-    
-          //     this.searchFn("")
-          //   }
-           
-          //   curIndex = -1;
-          //   this.activeRes = -1;
-          //   break;
         }
       };
       inner.cancel = () => {
@@ -191,7 +186,6 @@ export default {
     searchFn(keyword) {
       if (typeof keyword == "string") {
         this.cshowList = false
-
         this.$emit("searchFn",keyword)
         return;
       } else {
@@ -206,19 +200,21 @@ export default {
     window.addEventListener("blur", () => {
       this.winBlur = true;
     });
+    this.cshowList = false
   },
   computed: {
 
     inputMethod() {
+      
       function _inner(searchVal,$event){
+        this.originVal =searchVal
         return this.getRelatedRes(searchVal, $event)
       }
+      //需要联想搜索就返回_inner，不需要就返回NOOP
       return this.useRelated?_inner:NOOP
     },
     barClass() {
-      if (this.searchVal === "") {
-        this.cshowList = false;
-      }
+      
       var arr = [];
       if (this.barfoucus) {
         arr.push("focus");
@@ -235,10 +231,10 @@ export default {
 <style>
 .search-bar {
   cursor: pointer;
-  width: 300px;
+  width: 100%;
   border: 1px solid #dfe1e5;
   border-radius: 5px;
-  height: 40px;
+  height: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -263,9 +259,5 @@ export default {
 .focus {
   border: 1px solid var(--search-bar);
 }
-.bar-list-show {
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-  border-bottom: 1px solid #dfe1e5 !important;
-}
+
 </style>

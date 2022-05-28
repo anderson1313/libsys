@@ -6,7 +6,7 @@
   
 
 
-    <keep-alive exclude="Login,EachBook,AdminBook">
+    <keep-alive exclude="Login,EachBook,AdminBook,Admin">
       <router-view class="page-container" ></router-view>
     </keep-alive>
     

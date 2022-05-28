@@ -71,7 +71,15 @@ export default {
   color: var(--bold-text);
   font-size: 1rem;
   font-weight: bold;
+   word-break:normal; 
+    width:auto; 
+    display:block; 
+    white-space:pre-wrap;
+    word-wrap : break-word ;
+    overflow: hidden ;
+
 }
+
 .card-summary {
   font-size: .875rem;
   margin: 0.3125rem 0;

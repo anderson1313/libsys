@@ -46,7 +46,7 @@ export default {
 }
 .nav-bar{
   overflow: hidden;
-    width:1300px;
+    width:1000px;
     /* width: 100vw; */
     margin: 0 auto;
     display: flex;

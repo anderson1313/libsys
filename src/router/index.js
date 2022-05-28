@@ -86,7 +86,7 @@ const routes = [{
   path: "/admin",
   component: Admin,
   meta: {
-    requiresAuth: true
+    requiresAuth: false
   }
 },
 {
@@ -134,6 +134,10 @@ const router = new Router({
 
 
 router.beforeEach((to, from, next) => {
+  if(to.fullPath =="/admin") {
+    sessionCache.setItem("version","admin")
+
+  }
   // || from.matched.some(record => record.meta.requiresAuth)
 
   let toRqLogin = to.matched.some(record => record.meta.requiresLogin) //页面是否需要用户登录
@@ -162,8 +166,6 @@ router.beforeEach((to, from, next) => {
     if (toRqAuth) {
       // console.log("权限验证")
       if (sessionCache.getItem("isadmin") == true) {
-
-
         next()
       } else {
         Message({
@@ -171,8 +173,9 @@ router.beforeEach((to, from, next) => {
           message: '你没有管理员权限，请先登录'
         })
         next({
-          path: '/'
+          path: '/admin'
         })
+        sessionCache.setItem("version","admin")
       }
     }
   } else {

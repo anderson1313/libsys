@@ -12,7 +12,12 @@
 export default {
   name: "EllipseC",
   components: {},
-  props: {},
+  props: {
+    auto: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     const stash = this.sessionCache.getItem("stash");
     return Object.assign(
@@ -25,7 +30,8 @@ export default {
   },
   methods: {
     handleScroll(e) {
-      let startpoint = document.getElementsByClassName("home-intro")[0].offsetTop;
+      let startpoint =
+        document.getElementsByClassName("home-intro")[0].offsetTop;
       let bgoffsetTop = document.getElementsByClassName("home-bg")[0].offsetTop;
       let bgoffsetHeight =
         document.getElementsByClassName("home-bg")[0].offsetHeight;
@@ -34,19 +40,19 @@ export default {
       let DistanceTostartpoint = startpoint - bgoffsetHeight;
       let showInteo = _scrollTop > DistanceTostartpoint;
 
-    //   if (!showInteo) return;
+      //   if (!showInteo) return;
 
       this.scrollTop = _scrollTop;
       //Chrome,Safari下为0)
 
       //向上
       if (diff > 0) {
-        this.ypos = diff *2;
+        this.ypos = diff * 2;
         return;
       }
       //向下
       if (diff < 0) {
-        this.ypos = diff *2;
+        this.ypos = diff * 2;
         return;
       }
     },
@@ -70,22 +76,22 @@ export default {
         switch (index) {
           case 1:
             _style = {
-              transform: "translate3d(0," + (this.ypos +100) + "px,0)",
+              transform: "translate3d(0," + (this.ypos + 100) + "px,0)",
             };
             break;
           case 2:
             _style = {
-              transform: "translate3d(0," + (this.ypos +200)  + "px,0)",
+              transform: "translate3d(0," + (this.ypos + 200) + "px,0)",
             };
             break;
           case 3:
             _style = {
-              transform: "translate3d(0," + (this.ypos +100 ) + "px,0)",
+              transform: "translate3d(0," + (this.ypos + 100) + "px,0)",
             };
             break;
-             case 4:
+          case 4:
             _style = {
-              transform: "translate3d(0," + (this.ypos +200  ) + "px,0)",
+              transform: "translate3d(0," + (this.ypos + 200) + "px,0)",
             };
             break;
         }
@@ -93,6 +99,11 @@ export default {
         return _style;
       };
     },
+  },
+
+  created() {
+   
+
   },
 };
 </script>
@@ -118,7 +129,7 @@ export default {
   height: 699px;
   border-radius: 51%;
   z-index: -1;
-  transition: transform 0.3s linear;
+  transition: transform 0.5s linear;
   backface-visibility: hidden;
   transform-style: preserve-3d;
   perspective: 1000;
@@ -163,11 +174,13 @@ export default {
 .bg-ellipse-wrapper .bg-ellipse-4 {
   right: -190px;
   top: calc(100vh - 1000px);
-  background: linear-gradient(44.11deg,rgba(245,198,39,0.6) 8.94%,rgba(255,255,255,0) 86.73%);
+  background: linear-gradient(
+    44.11deg,
+    rgba(245, 198, 39, 0.6) 8.94%,
+    rgba(255, 255, 255, 0) 86.73%
+  );
   -webkit-transform: rotate(-85.35deg);
   -ms-transform: rotate(-85.35deg);
   transform: rotate(-85.35deg);
 }
-
-
 </style>

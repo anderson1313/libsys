@@ -1,6 +1,6 @@
 <template>
   <div class="book-list">
-    <transition-group :name="ani">
+    <!-- <transition-group :name="ani"> -->
     <book-item
     
       v-for="(bookItem, index) in books"
@@ -8,7 +8,10 @@
       :bookItem="bookItem"
       @toBookDetail="toBookDetail"
     ></book-item>
-    </transition-group>
+    <!-- </transition-group> -->
+
+
+    <el-empty v-show=" books.length==0" :image-size="200"></el-empty>
   </div>
 </template>
 <script>
@@ -17,6 +20,10 @@ export default {
   name: "BookList",
   components: {
     BookItem,
+  },
+  watch:{
+   
+
   },
   props: ["books","ani"],
   data() {
@@ -27,7 +34,9 @@ export default {
       this.$emit("toBookDetail", id);
     },
   },
-  created() {},
+  created() {
+  
+  },
   computed: {},
 };
 </script>

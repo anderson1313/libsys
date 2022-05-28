@@ -5,9 +5,11 @@
       <img src="@/assets/img/bg2.jpeg" alt="" />
       <div class="text animated fadeInDown">欢迎使用EasyLib</div>
       <div class="loginbtn animated fadeInDown" @click="loginClick">
-        {{ getTip() }}
+        <span> {{ getTip() }}</span>
+        <i class="iconfont icon-sanjiaoright"></i>
       </div>
     </div>
+  
 
     <ellipse-c></ellipse-c>
 
@@ -75,8 +77,8 @@ export default {
 }
 .home-bg img {
   position: absolute;
-  width: 85%;
-  height: 90%;
+  width: 80%;
+  height: 85%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -84,8 +86,8 @@ export default {
 }
 .mask {
   position: absolute;
-  width: 85%;
-  height: 90%;
+  width: 80%;
+  height: 85%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -102,13 +104,23 @@ export default {
   text-align: center;
 }
 .loginbtn {
+  position: absolute;
+  top: 10%;
+  right: 15%;
   font-weight: 300;
   cursor: pointer;
-  font-size: 15px;
+  font-size: 30px !important;
   margin: 20px 0;
   border-radius: 10px;
   padding: 5px 20px;
-  color: #001d6e;
-  background: rgba(255, 255, 255, 0.698);
+  color: white;
+  transition: all 0.2s;
+}
+.loginbtn .iconfont {
+  font-size: 30px !important;
+}
+.loginbtn:hover,
+.loginbtn .iconfont:hover {
+  color: wheat;
 }
 </style>

@@ -4,7 +4,7 @@
       <slot name="aside-item-name"></slot>
     </div>
     <slot name="aside-item-list">
-       <span  @click="handleClick(item.id)" class="option" :class="activeId == item.id ? 'activeop' : ''" v-for="item in options" :key="item.id">{{
+       <span  @click="handleClick(item.id,item.name)" class="option" :class="activeId == item.id ? 'activeop' : ''" v-for="item in options" :key="item.id">{{
         item.name
       }}</span>
       </slot>
@@ -33,8 +33,8 @@ export default {
     };
   },
   methods: {
-     handleClick(id){
-        this.$emit("handleClick",id)
+     handleClick(id,name){
+        this.$emit("handleClick",id,name)
      }
   },
   created() {},

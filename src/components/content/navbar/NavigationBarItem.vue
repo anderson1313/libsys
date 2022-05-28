@@ -33,9 +33,10 @@ export default {
       
       }
        if (this.path == "/admin") {
-         if(this.sessionCache.getItem("isadmin")){
-            this.sessionCache.setItem("version", "admin")
-         }
+        //  if(this.sessionCache.getItem("isadmin")){
+        //     this.sessionCache.setItem("version", "admin")
+        //  }
+        this.sessionCache.setItem("version", "admin")
       }
       this.$router.push(this.path);
     },

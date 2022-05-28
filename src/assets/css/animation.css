@@ -65,6 +65,10 @@
     animation: fun-fade-in 1s
 
 }
+.serach-fade-enter-active{
+    animation: fun-fade-in .5s
+
+}
 
 @keyframes fun-fade-in {
     0% {
