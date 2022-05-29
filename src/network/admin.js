@@ -8,3 +8,14 @@ import { request } from "./request";
 //         }
 //     })
 // }
+export function adminLogin(aname,apass) {
+    return request({
+        url:"adminservice/admin/login",
+        params:{
+            adminName:aname,
+            adminPassword:apass
+
+        }
+    })
+
+}

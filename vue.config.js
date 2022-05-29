@@ -27,7 +27,14 @@ module.exports = {
               pathRewrite: {
                   '^/bookservice': ''
               }
-          }
+          },
+          '/adminservice': {
+            target: 'http://10.252.77.139:8446', //API服务器的地址
+            changeOrigin: true,
+            pathRewrite: {
+                '^/adminservice': ''
+            }
+        }
       },
   }
  

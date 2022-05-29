@@ -74,15 +74,20 @@ export default {
         case "success":
           return {
             icon: "icon-chenggong",
-            background: "rgba(120, 224, 143,1)",
+            background: "#f0f9eb",
             top: `${this.top}px`,
+            "border-color": "#e1f3d8",
+            color:"rgba(0, 98, 102,1.0)"
           };
           break;
         case "error":
           return {
             icon: "icon-cuowu",
-            background: "#fab1a0",
+            background: "#fef0f0",
             top: `${this.top}px`,
+             "border-color": "#fde2e2",
+             color:"rgba(237, 76, 103,1.0)"
+          
           };
           break;
       }
@@ -94,6 +99,7 @@ export default {
 .text,
 .iconfont {
   font-size: .9375rem;
+  margin: 0 10px;
 }
 .message {
   min-width: 380px;

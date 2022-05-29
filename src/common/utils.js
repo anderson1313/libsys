@@ -25,7 +25,6 @@ export function debounce(fn, delay, immediate = false) {
 
 //confirm请求函数-fn是请求
 export function confirmRequest(fn, msg) {
-
     //
     return (...args) => {
         var that = this; //that表示调用这个方法的组件

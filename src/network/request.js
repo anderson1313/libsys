@@ -14,16 +14,16 @@ export function request(config) {
     })
 
     instance.interceptors.response.use(res => {
-        console.log("拦截res")
+    
         return res.data
     }, err => {
        
-        Message({
-            type: "error",
-            message: "数据请求错误，请稍后再试",
-        })
+        // Message({
+        //     type: "error",
+        //     message: "数据请求错误，请稍后再试",
+        // })
         // console.log(err);
-        return Promise.reject(new Error("getData failed"))
+        return Promise.reject(new Error("server failed"))
     })
 
     return instance(config)

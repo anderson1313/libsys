@@ -1,6 +1,9 @@
 import Vue from "vue"
 import Router from "vue-router"
 import Message from 'components/common/message/index.js'
+
+import store from "../store"
+
 import {
   sessionCache
 } from 'common/storage'
@@ -134,8 +137,8 @@ const router = new Router({
 
 
 router.beforeEach((to, from, next) => {
-  if(to.fullPath =="/admin") {
-    sessionCache.setItem("version","admin")
+  if (to.fullPath == "/admin") {
+    sessionCache.setItem("version", "admin")
 
   }
   // || from.matched.some(record => record.meta.requiresAuth)
@@ -148,8 +151,9 @@ router.beforeEach((to, from, next) => {
   if (flag) {
     //登录验证
     if (toRqLogin) {
-      // console.log("登陆验证")
-      if (sessionCache.getItem("isLogin") == true) {
+ 
+
+      if (sessionCache.getItem("isLogin")) {
         next()
       } else {
         Message({
@@ -164,10 +168,23 @@ router.beforeEach((to, from, next) => {
     }
     //权限验证
     if (toRqAuth) {
-      // console.log("权限验证")
-      if (sessionCache.getItem("isadmin") == true) {
-        next()
-      } else {
+
+      try {  
+        if (store.state.auth.isadmin == true) {
+
+          next()
+        } else {
+          Message({
+            type: 'error',
+            message: '你没有管理员权限，请先登录'
+          })
+          next({
+            path: '/admin'
+          })
+          sessionCache.setItem("version", "admin")
+        }
+
+      } catch {
         Message({
           type: 'error',
           message: '你没有管理员权限，请先登录'
@@ -175,8 +192,15 @@ router.beforeEach((to, from, next) => {
         next({
           path: '/admin'
         })
-        sessionCache.setItem("version","admin")
+        sessionCache.setItem("version", "admin")
+
+
       }
+
+
+
+
+
     }
   } else {
     // console.log("无验证跳转")

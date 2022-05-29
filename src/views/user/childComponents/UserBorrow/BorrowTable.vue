@@ -6,19 +6,19 @@
     :tableStyle="tableStyle"
   >
     <!-- 如果需要额外操作可以在这里添加-->
-    
-    <book-item-extra slot="extra" @handleEdit="handleEdit"></book-item-extra>
-   
+
+    <borrow-item-extra slot="extra"></borrow-item-extra>
+ 
   </manage-table>
 </template>
 <script>
 import ManageTable from "components/common/managetable/ManageTable";
-import BookItemExtra from "./BookItemExtra.vue";
+import BorrowItemExtra from "./BorrowItemExtra.vue";
 export default {
-  name: "BookTable",
+  name: "BorrowTable",
   components: {
     ManageTable,
-    BookItemExtra,
+    BorrowItemExtra,
   },
   props: ["tableData", "loading"],
   data() {
@@ -30,41 +30,40 @@ export default {
       labels: [
         {
           id: 0,
-          label: "图书编号",
+          label: "记录编号",
           width: "120",
-          prop: "bookId",
+          prop: "borrowNo",
         },
+
         {
           id: 1,
           label: "图书名称",
           prop: "bookName",
-          width: "220",
+          width: "130",
         },
+
         {
           id: 2,
-          label: "借阅量",
-          prop: "bookLoannumber",
+          label: "借阅日期",
+          prop: "borrowDate",
+          width: "100",
         },
         {
           id: 3,
-          label: "图片",
-          prop: "bookPhoto",
-          width: "80",
+          label: "归还日期",
+          prop: "returnDate",
+          width: "100",
         },
         {
           id: 4,
-          label: "图书状态",
-          prop: "bookState",
-          width: "80",
+          label: "归还状态",
+          prop: "borrowState",
+          width: "100",
         },
       ],
     };
   },
-  methods: {
-    handleEdit(data) {
-      this.$emit("handleEdit", data);
-    },
-  },
+  methods: {},
   created() {},
   computed: {},
 };

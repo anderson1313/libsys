@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 3351658 */
-  src: url('//at.alicdn.com/t/font_3351658_3pp5p6tyoqv.woff2?t=1653377965462') format('woff2'),
-       url('//at.alicdn.com/t/font_3351658_3pp5p6tyoqv.woff?t=1653377965462') format('woff'),
-       url('//at.alicdn.com/t/font_3351658_3pp5p6tyoqv.ttf?t=1653377965462') format('truetype');
+  src: url('//at.alicdn.com/t/font_3351658_a9cncd80vk8.woff2?t=1653801402681') format('woff2'),
+       url('//at.alicdn.com/t/font_3351658_a9cncd80vk8.woff?t=1653801402681') format('woff'),
+       url('//at.alicdn.com/t/font_3351658_a9cncd80vk8.ttf?t=1653801402681') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,26 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-tongguo:before {
+  content: "\e65c";
+}
+
+.icon-iconfontzhizuobiaozhun023139:before {
+  content: "\e68e";
+}
+
+.icon-qianshoushenpitongguo:before {
+  content: "\e891";
+}
+
+.icon-tongguo1:before {
+  content: "\e632";
+}
+
+.icon-tongguo2:before {
+  content: "\e626";
 }
 
 .icon-mima:before {

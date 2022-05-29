@@ -1,21 +1,17 @@
 <template>
   <div class="admin-login">
-    <span class="title">欢迎使用EasyLib管理平台</span>
-    <div class="input-item">
-      <i class="iconfont icon-zhanghaoquanxianguanli"></i>
-      <input v-model="adminAcct.name" @input="accInput" type="text" />
-    </div>
-    <div class="input-item">
-      <i class="iconfont icon-mima1"></i>
-      <input v-model="adminAcct.pass" @input="accInput" type="password" />
-    </div>
-    <button :disabled="dis" @click="adminLogin">登陆</button>
+    <p class="iconfont icon-iconfontzhizuobiaozhun023139"></p>
+    <p>亲爱的管理员：你已登陆</p>
+
+    <button @click="adminLogin">退出</button>
   </div>
 </template>
 <script>
 import { adminLogin } from "network/admin";
+import { confirmRequest } from "common/utils";
+
 export default {
-  name: "AdminLogin",
+  name: "AdminLogout",
   components: {},
   props: {},
   data() {
@@ -36,30 +32,19 @@ export default {
       }
     },
     adminLogin() {
-      adminLogin(this.adminAcct.name, this.adminAcct.pass)
-        .then((res) => {
-        console.log(res)
-          if (res.status == "200") {
-            this.$popmessage({
-              type: "success",
-              message: "登陆成功",
-            });
-            this.$store.commit("auth/adminLogin");
-            this.$router.push("/adminbook");
-          }else{
-               this.$popmessage({
-            type: "error",
-            message: "登陆失败，请稍后再试",
-          });
-
-          }
-        })
-        .catch((err) => {
-          this.$popmessage({
-            type: "error",
-            message: "登陆失败，请稍后再试",
-          });
-        });
+      const callback = function (...args) {
+        this.$store.commit("auth/adminLogout");
+      
+        this.currentInstance.loading = false;
+        this.currentInstance.visible = false;
+        this.currentInstance = null;
+        document.body.removeChild(args[1].$el);
+      };
+      const _adminLogin = confirmRequest.apply(this, [
+        callback,
+        "你确定要退出登录吗？",
+      ]);
+      _adminLogin();
     },
   },
   created() {},
@@ -73,7 +58,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
   background: white;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   border-radius: 10px;
@@ -131,17 +116,14 @@ export default {
   font-size: 14px;
   padding: 5px 0;
   border-radius: 0.3125rem;
-  background: var(--color-text-active);
+  background: rgba(232, 65, 24, 1);
   color: aliceblue;
   cursor: pointer;
   z-index: 99;
 }
-.admin-login button[disabled] {
-  background: rgba(164, 168, 174, 1);
-  color: aliceblue;
-  border: none;
-  font-size: 14px;
-  padding: 6px 0;
-  border-radius: 0.3125rem;
+.iconfont {
+  font-size: 70px !important;
+  color: #009432;
+  margin: 45px 0;
 }
 </style>

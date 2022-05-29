@@ -15,7 +15,7 @@ export default {
   props: {
     auto: {
       type: Boolean,
-      default: false,
+      default: true,
     },
   },
   data() {
@@ -60,7 +60,8 @@ export default {
   created() {},
 
   mounted() {
-    //监听鼠标滚动事件
+    if (this.auto) {
+        //监听鼠标滚动事件
     window.addEventListener("scroll", this.handleScroll);
     //在页面加载时读取sessionStorage里的状态信息
 
@@ -68,6 +69,9 @@ export default {
     window.addEventListener("beforeunload", () => {
       this.sessionCache.setItem("stash", this.$data);
     });
+
+    }
+  
   },
   computed: {
     ellipseStyle() {
