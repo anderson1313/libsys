@@ -39,7 +39,6 @@ export function confirmRequest(fn, msg) {
                 fn.apply(this,[args,res[1]])
             })
             .catch((err) => {
-
                 this.$popmessage({
                     type: "error",
                     message: "你已取消",

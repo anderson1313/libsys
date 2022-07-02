@@ -151,9 +151,7 @@ router.beforeEach((to, from, next) => {
   if (flag) {
     //登录验证
     if (toRqLogin) {
- 
-
-      if (sessionCache.getItem("isLogin")) {
+      if (localCache.getItem("token")) {
         next()
       } else {
         Message({
@@ -193,14 +191,7 @@ router.beforeEach((to, from, next) => {
           path: '/admin'
         })
         sessionCache.setItem("version", "admin")
-
-
       }
-
-
-
-
-
     }
   } else {
     // console.log("无验证跳转")

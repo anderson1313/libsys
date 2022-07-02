@@ -20,9 +20,8 @@ Vue.prototype.$popconfirm =  ConfirmBox
 Vue.prototype.sessionCache =  sessionCache
 Vue.prototype.localCache =  localCache
 if (!sessionCache.getItem("isadmin")){
-
   sessionCache.setItem("version","user")
-  sessionCache.setItem("isLogin",true) //加密
+  sessionCache.setItem("isLogin",false) //加密
 }
 
 // ACrypto.setSS(true,"isadmin")

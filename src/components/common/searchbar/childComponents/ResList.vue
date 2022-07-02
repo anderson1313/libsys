@@ -1,29 +1,33 @@
 <template>
-<transition name="serach-fade">
-  <div class="res-list" v-show="showList">
-    <div class="triangle triangle_border" />
-    <div class="triangle triangle_bg" />
-    <div
-      @mousedown="searchFn($event)"
-      :class="cactiveRes == index ? 'activeSe' : ''"
-      class="each-res"
-      v-for="(item, index) in relatedRes"
-      :data-keyword="item[field]"
-      :key="index"
-    >
-      <i class="iconfont icon-sousuo"></i>
-      <!-- <span>{{ item[field].replace(/\s*/g,"") }}</span> -->
-      <span>{{ item[field] }}</span>
-    </div>
-    <div class="each-res" v-if="relatedRes.length ==0">
-      <span>无匹配结果</span>
+  <transition name="serach-fade">
+    <div class="res-list" v-show="showList">
+      <div class="triangle triangle_border" />
+      <div class="triangle triangle_bg" />
 
+      <transition-group  @enter="enter" 
+                            @leave="leave"
+                            @beforeEnter="beforeEnter">
+        <div
+          @mousedown="searchFn($event)"
+          :class="cactiveRes == index ? 'activeSe' : ''"
+          class="each-res"
+          v-for="(item, index) in relatedRes"
+          :data-keyword="item[field]"
+          :key="index"
+        >
+          <i class="iconfont icon-sousuo"></i>
+          <!-- <span>{{ item[field].replace(/\s*/g,"") }}</span> -->
+          <span>{{ item[field] }}</span>
+        </div>
+        <div class="each-res" v-if="relatedRes.length == 0" key="none">
+          <span>无匹配结果</span>
+        </div>
+      </transition-group>
     </div>
-    
-  </div>
   </transition>
 </template>
 <script>
+import gsap from "gsap"
 export default {
   name: "ResList",
   components: {},
@@ -58,6 +62,29 @@ export default {
     };
   },
   methods: {
+     beforeEnter(el) {
+           el.style.opacity =0 
+           el.style.height = 0
+
+       },
+       leave(el, done) {
+             gsap.to(el,{
+               opacity:0,
+               height:0,
+               delay:el.dataset.index * 0.02,
+               onComplete:done
+           })
+
+
+       },
+       enter(el, done) {
+           gsap.to(el,{
+               opacity:1,
+               height:"1.5rem",
+               onComplete:done
+           })
+
+       },
     searchFn(e) {
       this.click = true;
       this.$emit("searchFn", e.target.dataset.keyword);

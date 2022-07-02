@@ -21,6 +21,7 @@ export default {
     return {};
   },
   created() {
+    
     // try {
     //   if (window.atob(this.sessionCache.getItem("isadmin")) == "true") {
     //     this.$store.commit("auth/adminLogin");
@@ -31,6 +32,10 @@ export default {
     //   this.sessionCache.setItem("isadmin",window.btoa(false))
 
     // }
+  },
+  mounted() {
+    //token验证
+
   },
 };
 </script>

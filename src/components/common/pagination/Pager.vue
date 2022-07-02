@@ -2,7 +2,7 @@
   <ul class="pager">
     <li
       class="number"
-      :class="{ liactive: this.current === 1 }"
+      :class="{ liactive: current === 1 }"
       @click="setPage(1)"
     >
       1
@@ -44,7 +44,7 @@
     <li
       class="number"
       v-if="totalPage !== 1"
-      :class="{ liactive: this.current === totalPage }"
+      :class="{ liactive: current === totalPage }"
       @click="setPage(totalPage)"
     >
       {{ totalPage }}

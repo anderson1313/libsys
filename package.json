@@ -11,6 +11,7 @@
     "core-js": "^3.6.5",
     "crypto-js": "^4.1.1",
     "element-ui": "^2.15.8",
+    "gsap": "^3.10.4",
     "lib-flexible": "^0.3.2",
     "vue": "^2.6.11",
     "vue-avatar": "^2.3.3",

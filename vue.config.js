@@ -22,14 +22,14 @@ module.exports = {
       hotOnly: false, 
       proxy: {
           '/bookservice': {
-              target: 'https://10.252.77.139:8443', //API服务器的地址
+              target: 'http://10.252.76.43:8443', //API服务器的地址
               changeOrigin: true,
               pathRewrite: {
                   '^/bookservice': ''
               }
           },
           '/adminservice': {
-            target: 'http://10.252.77.139:8446', //API服务器的地址
+            target: 'http:// 10.252.76.43:8446', //API服务器的地址
             changeOrigin: true,
             pathRewrite: {
                 '^/adminservice': ''

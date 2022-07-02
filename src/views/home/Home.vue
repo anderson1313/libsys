@@ -15,9 +15,11 @@
 
     <function></function>
     <introduction></introduction>
+  
   </div>
 </template>
 <script>
+import Tab from "components/common/tab/Tab"
 import EllipseC from "./childComponents/EllipseC.vue";
 import Function from "./childComponents/Function.vue";
 import Introduction from "./childComponents/Introduction.vue";
@@ -28,6 +30,7 @@ export default {
     EllipseC,
     Function,
     Introduction,
+    Tab
   },
   props: {},
   data() {
@@ -53,9 +56,12 @@ export default {
       }
     },
   },
-  created() {},
+  created() {
+
+  },
   computed: {},
   deactivated() {},
+  
 };
 </script>
 <style scoped>

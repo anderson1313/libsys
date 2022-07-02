@@ -24,10 +24,12 @@
       </div>
 
       <pagination ref="pager" @change="changePage" :total="total"></pagination>
+     
     </div>
   </div>
 </template>
 <script>
+
 import BookList from "components/content/books/BookList.vue";
 import SearchBar from "components/common/searchbar/SearchBar";
 import Pagination from "components/common/pagination/Pagination";
@@ -37,6 +39,7 @@ import { GetBooks } from "common/mixin.js";
 export default {
   name: "AllBooks",
   components: {
+
     BookAside,
     BookList,
     SearchBar,

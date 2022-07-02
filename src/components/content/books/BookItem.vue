@@ -53,10 +53,12 @@ export default {
     },
     toBookDetail() {
       this.showCrad = false
-      this.$emit("toBookDetail", this.bookItem.Id)
+      this.$emit("toBookDetail", this.bookItem.bookId)
     }
   },
-  created() {},
+  created() {
+
+  },
   computed: {},
 };
 </script>

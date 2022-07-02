@@ -1,5 +1,6 @@
 <template>
   <div class="home-fun">
+  
     <div class="fun-left">
       <p class="title">系统功能</p>
       <p class="left-text">
@@ -29,9 +30,13 @@
   </div>
 </template>
 <script>
+
 export default {
+  
   name: "Function",
-  components: {},
+  components: {
+   
+  },
   props: {},
   data() {
     return {

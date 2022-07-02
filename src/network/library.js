@@ -23,3 +23,13 @@ export function getDefaultBook() {
     return getBooks({page:1})
 }
 
+
+export function getBookById({id}) {
+    return request({
+        url:"bookservice/book/getById",
+        params:{
+            bookId:id
+        }
+
+    })
+}
